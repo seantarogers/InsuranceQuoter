@@ -7,13 +7,9 @@
     using InsuranceQuoter.Presentation.Ui.Models;
     using InsuranceQuoter.Presentation.Ui.Store.Customer;
     using Microsoft.AspNetCore.Components;
-    using Microsoft.AspNetCore.Components.Forms;
 
     public partial class Customer
     {
-        //private EditContext EditContext;
-        public string SelectedAddress { get; set; } = string.Empty;
-
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 

@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsuranceQuoter.Domain", "I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsuranceQuoter.Infrastructure.Message", "InsuranceQuoter.Infrastructure.Message\InsuranceQuoter.Infrastructure.Message.csproj", "{5CBF18F2-0AE9-458F-9B2A-E6C7FA3354C6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityProvider", "IdentityProvider\IdentityProvider.csproj", "{FD0ABDD1-C7C8-47FA-BD6C-687A60CA0E70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{5CBF18F2-0AE9-458F-9B2A-E6C7FA3354C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CBF18F2-0AE9-458F-9B2A-E6C7FA3354C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CBF18F2-0AE9-458F-9B2A-E6C7FA3354C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD0ABDD1-C7C8-47FA-BD6C-687A60CA0E70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD0ABDD1-C7C8-47FA-BD6C-687A60CA0E70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD0ABDD1-C7C8-47FA-BD6C-687A60CA0E70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD0ABDD1-C7C8-47FA-BD6C-687A60CA0E70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +100,7 @@ Global
 		{470E279E-3547-4827-AC38-30BD1668F657} = {3DF8D830-DBF9-4B70-A7B2-56442CA9AAA5}
 		{559C5F59-8B81-47D2-84AB-968A4B5640D1} = {3DF8D830-DBF9-4B70-A7B2-56442CA9AAA5}
 		{234AD219-EE15-4FB3-942B-336AF71DFA68} = {3DF8D830-DBF9-4B70-A7B2-56442CA9AAA5}
+		{FD0ABDD1-C7C8-47FA-BD6C-687A60CA0E70} = {3DF8D830-DBF9-4B70-A7B2-56442CA9AAA5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DBC1DF84-6DA0-40A1-985C-75C0F76EEE07}
