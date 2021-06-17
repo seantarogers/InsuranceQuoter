@@ -1,6 +1,9 @@
 ﻿@page "/paymentprogress"
 
+@using Microsoft.AspNetCore.Authorization
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+@attribute [Authorize]
 
 @if (PolicyBound == false)
 {
@@ -25,5 +28,5 @@
 }
 else
 {
-    <h1 class="page-title">Your policy has been successfully purchased</h1>
+    <h1 class="page-title">Your policy has been successfully purchased!</h1>
 }

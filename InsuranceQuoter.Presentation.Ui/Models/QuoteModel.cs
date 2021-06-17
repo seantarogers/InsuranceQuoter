@@ -12,6 +12,5 @@
         public string Addons { get; set; }
         public bool Selected { get; set; }
         public string SelectedClass { get; set; }
-        public string CardNumber { get; set; }
     }
 }

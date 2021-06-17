@@ -1,6 +1,9 @@
 ﻿@page "/car"
 
+@using Microsoft.AspNetCore.Authorization
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+@attribute [Authorize]
 
 
 <h1 class="page-title">Please tell us about your Car</h1>
@@ -25,7 +28,7 @@
     @if (CarRetrieving == false && CarRetrieved == false)
     {
         <div class="form-group">
-            <button class="btn btn-primary btn-sm" @onclick="FindCarSelected">Find Car</button>
+            <button class="btn btn-primary btn-sm" type="button" @onclick="FindCarSelected">Find Car</button>
         </div>
     }
 

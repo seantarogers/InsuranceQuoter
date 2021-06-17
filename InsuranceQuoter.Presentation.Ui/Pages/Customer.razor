@@ -1,13 +1,15 @@
 ﻿@page "/customer"
 @using InsuranceQuoter.Presentation.Ui.Models
+@using Microsoft.AspNetCore.Authorization
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+@attribute [Authorize]
 
 <h1 class="page-title">Please tell us about yourself</h1>
 
 <EditForm Model="@Model" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
-
 
     @*//https://getbootstrap.com/docs/5.0/forms/layout/*@
     @*form as a row and each item has a col*@

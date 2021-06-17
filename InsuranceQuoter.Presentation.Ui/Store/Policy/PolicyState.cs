@@ -1,7 +1,8 @@
 ﻿namespace InsuranceQuoter.Presentation.Ui.Store.Policy
 {
-    public class PolicyState
+    public record PolicyState
     {
-        
+        public string Reference { get; init; }
+        public decimal Premium { get; init; }
     }
 }
