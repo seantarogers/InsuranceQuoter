@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazored.SessionStorage" Version="2.1.0" />
+    <PackageReference Include="Fluxor.Blazor.Web" Version="4.1.0" />
+    <PackageReference Include="Fluxor.Blazor.Web.ReduxDevTools" Version="4.1.0" />
+    <PackageReference Include="Fluxor.Persist" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.7" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Store\Policy\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InsuranceQuoter.Infrastructure.Message\InsuranceQuoter.Infrastructure.Message.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,29 @@
+﻿@page "/paymentprogress"
+
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+@if (PolicyBound == false)
+{
+
+    <h1 class="page-title">Please wait whilst we place your car on cover...</h1>
+
+    <div class="form-group">
+        <ul class="list-group">
+
+            @foreach (string state in States)
+            {
+                <li class="list-group-item">@state</li>
+            }
+        </ul>
+    </div>
+
+    <div class="form-group">
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: @StatesPercentage" role="progressbar" aria-valuenow="@StatesCompleted" aria-valuemin="0" aria-valuemax="5"></div>
+        </div>
+    </div>
+}
+else
+{
+    <h1 class="page-title">Your policy has been successfully purchased</h1>
+}

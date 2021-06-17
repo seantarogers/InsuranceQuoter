@@ -1,0 +1,113 @@
+﻿@page "/customer"
+@using InsuranceQuoter.Presentation.Ui.Models
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+<h1 class="page-title">Please tell us about yourself</h1>
+
+<EditForm Model="@Model" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+
+    @*//https://getbootstrap.com/docs/5.0/forms/layout/*@
+    @*form as a row and each item has a col*@
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-6">
+                <InputText class="form-control" id="firstName" @bind-Value="Model.FirstName" placeholder="First Name" />
+            </div>
+            <div class="col-md-6">
+                <InputText class="form-control" id="lastName" @bind-Value="Model.LastName" placeholder="Last Name" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-md-6">
+        <InputDate class="form-control" id="dateofbirth" @bind-Value="Model.DateOfBirth" placeholder="Date of Birth" />
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                <InputText class="form-control" id="postcode" @bind-Value="Model.Postcode" placeholder="Enter your Postcode to find your Address" />
+            </div>
+            <div class="col">
+            </div>
+        </div>
+    </div>
+
+
+    @if (@AddressRetrieving == false && @AddressRetrieved == false)
+    {
+        <div class="form-group">
+            <button type="button" class="btn btn-primary btn-sm" @onclick="FindAddressSelected">Find Address</button>
+        </div>
+    }
+
+    @if (@AddressRetrieving)
+    {
+        <div class="form-group">
+            <button class="btn btn-primary btn-sm" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Retrieving Address...
+            </button>
+        </div>
+    }
+    @if (@AddressRetrieved)
+    {
+        <div class="form-group">
+            <div class="row">
+                <div class="col">
+                    <select id="country" class="form-control col-sm-8" @onchange="@AddressSelected">
+                        <option value="">Select your address...</option>
+                        @foreach (AddressModel address in AddressModels)
+                        {
+                            <option value="@address.Uid">@address.ToString()</option>
+                        }
+                    </select>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-primary btn-sm" @onclick="FindAddressSelected">Find Address</button>
+        </div>
+    }
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                <InputText class="form-control" id="addressLine1" @bind-Value="Model.AddressLine1" placeholder="Address Line 1" />
+            </div>
+            <div class="col">
+                <InputText class="form-control" id="addressLine2" @bind-Value="Model.AddressLine2" placeholder="Address Line 2" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                <InputText class="form-control" id="city" @bind-Value="Model.City" placeholder="City" />
+            </div>
+            <div class="col">
+                <InputText class="form-control" id="county" @bind-Value="Model.County" placeholder="County" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                <InputText class="form-control" id="postcode" @bind-Value="Model.Postcode" placeholder="Postcode" />
+            </div>
+            <div class="col">
+            </div>
+        </div>
+    </div>
+
+    @*disabled="@(!context.Validate() || !context.IsModified())"*@
+    <button class="btn btn-success" type="submit">Next</button>
+
+</EditForm>

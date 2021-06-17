@@ -1,0 +1,89 @@
+﻿@page "/car"
+
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+
+<h1 class="page-title">Please tell us about your Car</h1>
+
+<EditForm Model="@Model" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <InputSelect class="form-control col-sm-8" @bind-Value="Model.CoverType">
+            <option>Select Insurance Cover Type...</option>
+            <option>Fully Comprehensive</option>
+            <option>Liability Coverage</option>
+            <option>Third Party</option>
+        </InputSelect>
+    </div>
+
+    <div class="form-group">
+        <InputText class="form-control" id="registratgion" @bind-Value="Model.Registration" placeholder="Enter your Registration Number to find your Car" />
+    </div>
+
+    @if (CarRetrieving == false && CarRetrieved == false)
+    {
+        <div class="form-group">
+            <button class="btn btn-primary btn-sm" @onclick="FindCarSelected">Find Car</button>
+        </div>
+    }
+
+    @if (CarRetrieving)
+    {
+        <div class="form-group">
+            <button class="btn btn-primary btn-sm" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Retrieving Car...
+            </button>
+        </div>
+    }
+
+    @if (@CarRetrieved)
+    {
+        <div class="form-group">
+            <button class="btn btn-primary btn-sm" @onclick="FindCarSelected">Find Car</button>
+        </div>
+
+        <div class="form-group">
+            <InputText class="form-control" id="make" @bind-Value="Model.Make" placeholder="Make" readonly />
+        </div>
+
+        <div class="form-group">
+            <InputText class="form-control" id="model" @bind-Value="Model.Model" placeholder="Model" readonly />
+        </div>
+
+        <div class="form-group">
+            <InputNumber class="form-control" id="year" @bind-Value="Model.Year" placeholder="Year" readonly />
+        </div>
+
+        <div class="form-group">
+            <InputNumber class="form-control" id="mileage" @bind-Value="Model.Mileage" placeholder="Mileage" readonly />
+        </div>
+
+        <div class="form-group">
+            <InputText class="form-control" id="transmission" @bind-Value="Model.Transmission" placeholder="Transmission" readonly />
+        </div>
+
+        <div class="form-group">
+            <InputText class="form-control" id="fuel" @bind-Value="Model.Fuel" placeholder="Fuel" readonly />
+        </div>
+
+        <div class="form-group">
+            <InputText class="form-control" id="fuel" @bind-Value="Model.Registration" placeholder="Registration" readonly />
+        </div>
+    }
+
+    <a href="@($"customer")" class="btn btn-warning">
+        Back
+    </a>
+
+    <button class="btn btn-success" type="submit">Get Quotes</button>
+
+    @*<a href="@($"customer")" class="btn btn-warning">
+            Back
+        </a>
+        <a href="@($"quotes")" class="btn btn-success">
+            Get Quotes for your Car
+        </a>*@
+</EditForm>
