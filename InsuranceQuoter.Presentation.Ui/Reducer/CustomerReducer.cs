@@ -45,15 +45,16 @@
         {
             return new CustomerState
             {
-                Addresses =  action.Addresses.Select(a => new AddressModel
-                {
-                    Uid = a.Uid,
-                    AddressLine1 = a.AddressLine1,
-                    Postcode = a.Postcode,
-                    City = a.City,
-                    County = a.County,
-                    AddressLine2 = a.AddressLine2
-                }).ToList(),
+                Addresses = action.Addresses.Select(
+                    a => new AddressModel
+                    {
+                        Uid = a.Uid,
+                        AddressLine1 = a.AddressLine1,
+                        Postcode = a.Postcode,
+                        City = a.City,
+                        County = a.County,
+                        AddressLine2 = a.AddressLine2
+                    }).ToList(),
                 AddressRetrieved = true,
                 AddressRetrieving = false,
                 Model = new CustomerModel
@@ -65,15 +66,6 @@
                 }
             };
         }
-
-        [ReducerMethod]
-        public static CustomerState Handle(CustomerState state, CustomerInitializationRequestedAction action) =>
-            state with
-            {
-                AddressRetrieved = false,
-                AddressRetrieving = false,
-                Model = new CustomerModel()
-            };
 
         [ReducerMethod]
         public static CustomerState Handle(CustomerState state, InitializeStateAction action) =>
