@@ -2,8 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fluxor;
     using InsuranceQuoter.Presentation.Ui.Actions;
+    using InsuranceQuoter.Presentation.Ui.Functions;
     using InsuranceQuoter.Presentation.Ui.Models;
     using InsuranceQuoter.Presentation.Ui.Store.Customer;
     using Microsoft.AspNetCore.Components;
@@ -19,15 +21,13 @@
         [Inject]
         public IDispatcher Dispatcher { get; set; }
 
+        [Inject]
+        public SignalRConnectionManager SignalRConnectionManager { get; set; }
+
         public List<AddressModel> AddressModels => CustomerState.Value.Addresses;
         public CustomerModel Model => CustomerState.Value.Model;
         public bool AddressRetrieved => CustomerState.Value.AddressRetrieved;
         public bool AddressRetrieving => CustomerState.Value.AddressRetrieving;
-
-        private void HandleValidSubmit()
-        {
-            NavigationManager.NavigateTo("car");
-        }
 
         public void FindAddressSelected()
         {
@@ -41,11 +41,18 @@
             StateHasChanged();
         }
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            Dispatcher.Dispatch(new CustomerInitializationRequestedAction(Model));
+            Dispatcher.Dispatch(new InitializeStateAction());
 
-            base.OnInitialized();
+            await SignalRConnectionManager.Initialize();
+
+            await base.OnInitializedAsync();
+        }
+
+        private void HandleValidSubmit()
+        {
+            NavigationManager.NavigateTo("car");
         }
     }
 }
