@@ -1,10 +1,8 @@
 ﻿namespace InsuranceQuoter.Presentation.Ui.Models
 {
-    using System;
-
     public class CarModel
     {
-        public Guid Uid { get; set; }
+        public string Id { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
         public int? Year { get; set; }

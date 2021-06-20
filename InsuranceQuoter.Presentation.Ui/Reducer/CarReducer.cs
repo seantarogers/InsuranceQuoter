@@ -29,7 +29,7 @@
                     Mileage = action.Mileage,
                     Transmission = action.Transmission,
                     Fuel = action.Fuel,
-                    Uid = action.Uid,
+                    Id = action.Id,
                     Registration = action.Registration,
                     CoverType = state.Model.CoverType
                 },
@@ -48,7 +48,7 @@
                     Mileage = state.Model.Mileage,
                     Transmission = state.Model.Transmission,
                     Fuel = state.Model.Fuel,
-                    Uid = state.Model.Uid,
+                    Id = state.Model.Id,
                     Registration = state.Model.Registration,
                     CoverType = action.CoverType
                 }

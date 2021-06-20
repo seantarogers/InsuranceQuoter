@@ -13,7 +13,7 @@
         public string City { get; set; }
         public string County { get; set; }
         public string Postcode { get; set; }
-        public Guid CarUid { get; set; }
+        public string CarId { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
         public int Year { get; set; }

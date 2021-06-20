@@ -9,7 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\InsuranceQuoter.Application.Query\InsuranceQuoter.Application.Query.csproj" />
     <ProjectReference Include="..\InsuranceQuoter.Infrastructure.Message\InsuranceQuoter.Infrastructure.Message.csproj" />
+    <ProjectReference Include="..\InsuranceQuoter.Infrastructure\InsuranceQuoter.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

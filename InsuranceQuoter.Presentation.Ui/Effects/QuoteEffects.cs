@@ -13,7 +13,7 @@
     public class QuoteEffects
     {
         private readonly IState<CarState> carState;
-        private readonly  IState<CustomerState> customerState;
+        private readonly IState<CustomerState> customerState;
 
         public QuoteEffects(IState<CarState> carState, IState<CustomerState> customerState)
         {
@@ -41,7 +41,7 @@
                     Postcode = customer.Postcode,
                     AddressUid = customer.AddressUid,
                     CoverType = car.CoverType,
-                    CarUid = car.Uid,
+                    CarId = car.Id,
                     Model = car.Model,
                     Registration = car.Registration,
                     Fuel = car.Fuel,
