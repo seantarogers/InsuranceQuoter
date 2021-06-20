@@ -37,7 +37,7 @@
 
             dispatcher.Dispatch(
                 new CarRetrievedAction(
-                    carResponse.Uid,
+                    carResponse.Id,
                     carResponse.Make,
                     carResponse.Model,
                     carResponse.Year,
@@ -46,6 +46,5 @@
                     carResponse.Transmission,
                     action.RegistrationNumber));
         }
-
     }
 }
