@@ -12,13 +12,13 @@
 
     public class QuoteHub : Hub
     {
-        public async Task TakePaymentCommandHandler(TakePaymentCommand command)
+        public async Task HandleTakePaymentCommandAsync(TakePaymentCommand command)
         {
             Thread.Sleep(1000);
             await Clients.All.SendAsync(
                 "PaymentProviderContactedEventHandler",
                 new PaymentProviderContactedEvent()
-                );
+            );
 
             Thread.Sleep(1000);
             await Clients.All.SendAsync(
@@ -37,12 +37,12 @@
                     PaymentUid = Guid.NewGuid()
                 });
 
-             Thread.Sleep(1000);
+            Thread.Sleep(1000);
             await Clients.All.SendAsync(
                 "InsurerContactedEventHandler",
                 new InsurerContactedEvent());
 
-             Thread.Sleep(1000);
+            Thread.Sleep(1000);
             await Clients.All.SendAsync(
                 "PolicyBoundEventHandler",
                 new PolicyBoundEvent
@@ -51,7 +51,7 @@
                 });
         }
 
-        public async Task QuotesRequestHandler(QuotesRequest request)
+        public async Task HandleQuotesRequestAsync(QuotesRequest request)
         {
             Thread.Sleep(1000);
             await Clients.All.SendAsync(
