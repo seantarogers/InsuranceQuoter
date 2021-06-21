@@ -11,6 +11,14 @@
 
   <ItemGroup>
     <Folder Include="Hubs\" />
+    <Folder Include="Settings\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NServiceBus" Version="7.4.7" />
+    <PackageReference Include="NServiceBus.Extensions.Hosting" Version="1.1.0" />
+    <PackageReference Include="NServiceBus.Transport.AzureServiceBus" Version="1.9.0" />
+    <PackageReference Include="Topshelf" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
