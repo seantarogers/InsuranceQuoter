@@ -28,7 +28,7 @@
             CarModel car = carState.Value.Model;
 
             return SignalRConnectionManager.HubConnection.SendAsync(
-                "QuotesRequestHandler",
+                "HandleQuotesRequestAsync",
                 new QuotesRequest
                 {
                     FirstName = customer.FirstName,

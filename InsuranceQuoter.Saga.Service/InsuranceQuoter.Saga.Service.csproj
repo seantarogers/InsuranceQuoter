@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,6 +8,11 @@
   <ItemGroup>
     <PackageReference Include="NServiceBus" Version="7.4.7" />
     <PackageReference Include="NServiceBus.Transport.AzureServiceBus" Version="1.9.0" />
+    <PackageReference Include="Topshelf" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InsuranceQuoter.Infrastructure.Message\InsuranceQuoter.Infrastructure.Message.csproj" />
   </ItemGroup>
 
 </Project>

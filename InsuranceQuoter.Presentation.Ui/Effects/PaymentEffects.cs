@@ -23,9 +23,9 @@
         public Task Handle(PaymentRequestedAction action, IDispatcher dispatcher)
         {
             QuoteModel selectedQuote = quoteState.Value.Model.Single(a => a.Selected);
-            
+
             return SignalRConnectionManager.HubConnection.SendAsync(
-                "TakePaymentCommandHandler",
+                "HandleTakePaymentCommandAsync",
                 new TakePaymentCommand()
                 {
                     CardNumber = action.CardNumber,

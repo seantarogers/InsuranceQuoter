@@ -9,9 +9,17 @@
     using InsuranceQuoter.Infrastructure.Message.Requests;
     using InsuranceQuoter.Infrastructure.Message.Responses;
     using Microsoft.AspNetCore.SignalR;
+    using NServiceBus;
 
     public class QuoteHub : Hub
     {
+        private readonly IMessageSession messageSession;
+
+        public QuoteHub(IMessageSession messageSession)
+        {
+            this.messageSession = messageSession;
+        }
+
         public async Task HandleTakePaymentCommandAsync(TakePaymentCommand command)
         {
             Thread.Sleep(1000);
@@ -53,6 +61,8 @@
 
         public async Task HandleQuotesRequestAsync(QuotesRequest request)
         {
+            await messageSession.Send(request, new SendOptions());
+
             Thread.Sleep(1000);
             await Clients.All.SendAsync(
                 "QuotesResponseHandler",
