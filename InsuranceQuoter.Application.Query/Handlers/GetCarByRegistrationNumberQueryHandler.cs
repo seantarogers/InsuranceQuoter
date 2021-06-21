@@ -21,7 +21,7 @@
 
         public async Task<CarByRegistrationNumberResult> HandleAsync(GetCarByRegistrationNumberQuery query)
         {
-            var sql = $"SELECT * FROM Car c WHERE c.registrationnumber = '{query.RegistrationNumber}'";
+            var sql = $"SELECT * FROM c WHERE c.registrationNumber = '{query.RegistrationNumber}'";
 
             IEnumerable<CarDto> carDtos = (await cosmosClientManager.GetItemsAsync<CarDto>(CosmosConstants.CarContainerId, CosmosConstants.DatabaseId, sql)).ToList();
 

@@ -21,12 +21,9 @@
             Database database = client.GetDatabase(databaseId);
             Container container = client.GetContainer(database.Id, containerId);
 
-            FeedIterator<TDto> feedIterator = container.GetItemQueryIterator<TDto>(
-                new QueryDefinition(sql),
-                null,
-                new QueryRequestOptions());
+            FeedIterator<TDto> feedIterator = container.GetItemQueryIterator<TDto>(sql);
 
-            FeedResponse<TDto> feedResponse = await feedIterator.ReadNextAsync();
+            FeedResponse<TDto> feedResponse = await feedIterator.ReadNextAsync().ConfigureAwait(false);
 
             return feedResponse.ToList();
         }
