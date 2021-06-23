@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class QuoteReceivedEvent
+    public class QuoteReceivedEvent : Message
     {
         public Guid Uid { get; set; }
         public string Insurer { get; set; }

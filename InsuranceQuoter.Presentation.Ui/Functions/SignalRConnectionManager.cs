@@ -47,7 +47,7 @@
 
             HubConnection.On(
                 "CardAuthorisedEventHandler",
-                (CardAuthorisedEvent _) => { dispatcher.Dispatch(new CardAuthorisedAction()); });
+                (CardPaymentTakenEvent _) => { dispatcher.Dispatch(new CardAuthorisedAction()); });
 
             HubConnection.On(
                 "PaymentTakenEventHandler",
@@ -61,7 +61,7 @@
                 "PolicyBoundEventHandler",
                 (PolicyBoundEvent policyBoundEvent) =>
                 {
-                    dispatcher.Dispatch(new PolicyBoundAction(policyBoundEvent.Reference));
+                    dispatcher.Dispatch(new PolicyBoundAction(policyBoundEvent.PolicyReference));
 
                     Task.Delay(TimeSpan.FromMilliseconds(1000)).ContinueWith(_ => { dispatcher.Dispatch(new PurchaseCompletedAction()); }).GetAwaiter().GetResult();
                 });
