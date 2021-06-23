@@ -48,7 +48,7 @@
                 Addresses = action.Addresses.Select(
                     a => new AddressModel
                     {
-                        Uid = a.Uid,
+                        Uid = a.Id,
                         AddressLine1 = a.AddressLine1,
                         Postcode = a.Postcode,
                         City = a.City,

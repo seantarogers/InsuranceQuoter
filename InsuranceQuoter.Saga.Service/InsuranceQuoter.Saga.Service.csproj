@@ -9,10 +9,19 @@
     <PackageReference Include="NServiceBus" Version="7.4.7" />
     <PackageReference Include="NServiceBus.Transport.AzureServiceBus" Version="1.9.0" />
     <PackageReference Include="Topshelf" Version="4.3.0" />
+    <PackageReference Include="NServiceBus.Persistence.CosmosDB" Version="0.2.*" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\InsuranceQuoter.Infrastructure.Message\InsuranceQuoter.Infrastructure.Message.csproj" />
+    <ProjectReference Include="..\InsuranceQuoter.Infrastructure\InsuranceQuoter.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Settings\" />
+    <Folder Include="SagaStates\" />
+    <Folder Include="SagaData\" />
+    <Folder Include="Sagas\" />
   </ItemGroup>
 
 </Project>

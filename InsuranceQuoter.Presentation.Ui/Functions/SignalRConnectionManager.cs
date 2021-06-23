@@ -28,14 +28,18 @@
             await HubConnection.StartAsync();
 
             HubConnection.On(
-                "QuotesResponseHandler",
-                (QuoteResponse quoteResponse) => { dispatcher.Dispatch(new QuoteReceivedAction(
-                    quoteResponse.Uid, 
-                    quoteResponse.Insurer, 
-                    quoteResponse.Premium, 
-                    quoteResponse.Addons, 
-                    quoteResponse.StartDate,
-                    quoteResponse.PremiumTax)); });
+                "QuoteResponseHandler",
+                (QuoteResponse quoteResponse) =>
+                {
+                    dispatcher.Dispatch(
+                        new QuoteReceivedAction(
+                            quoteResponse.Uid,
+                            quoteResponse.Insurer,
+                            quoteResponse.Premium,
+                            quoteResponse.Addons,
+                            quoteResponse.StartDate,
+                            quoteResponse.PremiumTax));
+                });
 
             HubConnection.On(
                 "PaymentProviderContactedEventHandler",
@@ -59,10 +63,7 @@
                 {
                     dispatcher.Dispatch(new PolicyBoundAction(policyBoundEvent.Reference));
 
-                    Task.Delay(TimeSpan.FromMilliseconds(1000)).ContinueWith(_ =>
-                    {
-                            dispatcher.Dispatch(new PurchaseCompletedAction());
-                    }).GetAwaiter().GetResult();
+                    Task.Delay(TimeSpan.FromMilliseconds(1000)).ContinueWith(_ => { dispatcher.Dispatch(new PurchaseCompletedAction()); }).GetAwaiter().GetResult();
                 });
         }
     }

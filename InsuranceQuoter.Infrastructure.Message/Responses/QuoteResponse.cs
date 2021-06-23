@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using InsuranceQuoter.Infrastructure.Message.Dtos;
 
     public class QuoteResponse
     {

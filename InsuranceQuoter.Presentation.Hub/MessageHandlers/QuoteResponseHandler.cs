@@ -17,7 +17,7 @@
 
         public Task Handle(QuoteResponse message, IMessageHandlerContext context) =>
             quoteHubContext.Clients.All.SendAsync(
-                "QuotesResponseHandler",
+                "QuoteResponseHandler",
                 message);
     }
 }
