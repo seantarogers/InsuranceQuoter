@@ -1,6 +1,6 @@
 ﻿namespace InsuranceQuoter.Infrastructure.Message.Events
 {
-    public class PaymentProviderContactedEvent : Message
+    public class PolicyAddedEvent : Message
     {
     }
 }

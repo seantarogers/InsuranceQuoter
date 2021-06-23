@@ -4,6 +4,5 @@
 
     public class QuoteSagaData : ContainSagaData
     {
-        public int RequestsSent { get; set; }
     }
 }

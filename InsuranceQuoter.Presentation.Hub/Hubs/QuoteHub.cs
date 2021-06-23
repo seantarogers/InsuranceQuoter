@@ -29,9 +29,9 @@
             Thread.Sleep(1000);
             await Clients.All.SendAsync(
                 "CardAuthorisedEventHandler",
-                new CardAuthorisedEvent()
+                new CardPaymentTakenEvent()
                 {
-                    CardNumber = command.CardNumber
+                    PaymentReference = ""
                 });
 
             Thread.Sleep(1000);
@@ -53,7 +53,7 @@
                 "PolicyBoundEventHandler",
                 new PolicyBoundEvent
                 {
-                    Reference = Guid.NewGuid().ToString()
+                    PolicyReference = Guid.NewGuid().ToString()
                 });
         }
 

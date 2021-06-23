@@ -1,8 +1,8 @@
-﻿namespace InsuranceQuoter.Infrastructure.Message.Events
+﻿namespace InsuranceQuoter.Infrastructure.Message.Commands
 {
     using System;
 
-    public class QuoteRequestedEvent : Message
+    public class RetrieveQuotesCommand : Message
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

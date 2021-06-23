@@ -30,7 +30,7 @@
                 {
                     CardNumber = action.CardNumber,
                     Amount = selectedQuote.Premium,
-                    Reference = "Payment for Car Insurance"
+                    QuoteReference = "Payment for Car Insurance"
                 });
         }
     }

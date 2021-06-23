@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class QuoteRequest
+    public class QuoteRequest : Message
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
