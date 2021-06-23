@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using InsuranceQuoter.Infrastructure.Dtos;
+    using InsuranceQuoter.Message.Dtos;
     using Microsoft.Azure.Cosmos;
     using Microsoft.Extensions.Configuration;
 

@@ -1,7 +1,7 @@
 ﻿namespace InsuranceQuoter.Infrastructure.Message.Responses
 {
     using System.Collections.Generic;
-    using InsuranceQuoter.Infrastructure.Message.Dtos;
+    using InsuranceQuoter.Message.Dtos;
 
     public class AddressResponse
     {

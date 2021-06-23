@@ -6,8 +6,8 @@
     using InsuranceQuoter.Application.Query.Queries;
     using InsuranceQuoter.Application.Query.Results;
     using InsuranceQuoter.Infrastructure.Constants;
-    using InsuranceQuoter.Infrastructure.Dtos;
     using InsuranceQuoter.Infrastructure.Functions;
+    using InsuranceQuoter.Message.Dtos;
 
     public class GetAddressesByPostcodeQueryHandler : IAsyncQueryHandler<GetAddressesByPostCodeQuery, AddressesByPostcodeResult>
     {
@@ -20,7 +20,7 @@
 
         public async Task<AddressesByPostcodeResult> HandleAsync(GetAddressesByPostCodeQuery query)
         {
-            var sql = $"SELECT * FROM Address a WHERE a.postcode = '{query.PostCode}'";
+            var sql = $"SELECT * FROM c WHERE c.postcode = '{query.PostCode}'";
 
             IEnumerable<AddressDto> addressDtos = await cosmosClientManager.GetItemsAsync<AddressDto>(CosmosConstants.AddressContainerId, CosmosConstants.DatabaseId, sql);
 

@@ -1,13 +1,11 @@
 ﻿namespace InsuranceQuoter.Presentation.Hub.Hubs
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using InsuranceQuoter.Infrastructure.Message.Commands;
     using InsuranceQuoter.Infrastructure.Message.Events;
     using InsuranceQuoter.Infrastructure.Message.Requests;
-    using InsuranceQuoter.Infrastructure.Message.Responses;
     using Microsoft.AspNetCore.SignalR;
     using NServiceBus;
 
@@ -59,85 +57,121 @@
                 });
         }
 
-        public async Task HandleQuotesRequestAsync(QuotesRequest request)
+        public async Task HandleQuotesRequestAsync(QuoteRequest request)
         {
-            await messageSession.Send(request, new SendOptions());
-
-            Thread.Sleep(1000);
-            await Clients.All.SendAsync(
-                "QuotesResponseHandler",
-                new QuoteResponse()
+            await messageSession.Send(
+                new AbcInsurerQuoteRequest
                 {
-                    Uid = Guid.NewGuid(),
-                    Insurer = "Insurer1",
-                    Premium = 100M,
-                    StartDate = DateTime.Now,
-                    PremiumTax = 10M,
-                    Addons = new List<string>()
-                    {
-                        "Key cover"
-                    }
-                });
-            await Clients.All.SendAsync(
-                "QuotesResponseHandler",
-                new QuoteResponse()
-                {
-                    Uid = Guid.NewGuid(),
-                    Insurer = "Insurer5",
-                    Premium = 500M,
-                    PremiumTax = 50M,
-                    StartDate = DateTime.Now,
-                    Addons = new List<string>()
-                    {
-                        "Key cover"
-                    }
+                    CarId = request.CarId,
+                    Make = request.Make,
+                    Model = request.Model,
+                    Mileage = request.Mileage,
+                    Fuel = request.Fuel,
+                    Transmission = request.Transmission,
+                    AddressLine1 = request.AddressLine1,
+                    AddressLine2 = request.AddressLine2,
+                    AddressUid = request.AddressUid,
+                    City = request.City,
+                    County = request.County,
+                    CoverType = request.CoverType,
+                    DateOfBirth = request.DateOfBirth,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    Postcode = request.Postcode,
+                    Registration = request.Registration,
+                    Year = request.Year
                 });
 
-            Thread.Sleep(1000);
-            await Clients.All.SendAsync(
-                "QuotesResponseHandler",
-                new QuoteResponse()
+            await messageSession.Send(
+                new DefInsurerQuoteRequest()
                 {
-                    Uid = Guid.NewGuid(),
-                    Insurer = "Insurer2",
-                    Premium = 200M,
-                    PremiumTax = 20M,
-                    StartDate = DateTime.Now,
-                    Addons = new List<string>()
-                    {
-                        "Key cover",
-                        "Break down cover"
-                    }
+                    CarId = request.CarId,
+                    Make = request.Make,
+                    Model = request.Model,
+                    Mileage = request.Mileage,
+                    Fuel = request.Fuel,
+                    Transmission = request.Transmission,
+                    AddressLine1 = request.AddressLine1,
+                    AddressLine2 = request.AddressLine2,
+                    AddressUid = request.AddressUid,
+                    City = request.City,
+                    County = request.County,
+                    CoverType = request.CoverType,
+                    DateOfBirth = request.DateOfBirth,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    Postcode = request.Postcode,
+                    Registration = request.Registration,
+                    Year = request.Year
                 });
 
-            Thread.Sleep(1000);
-            await Clients.All.SendAsync(
-                "QuotesResponseHandler",
-                new QuoteResponse()
+            await messageSession.Send(
+                new GhiInsurerQuoteRequest()
                 {
-                    Uid = Guid.NewGuid(),
-                    Insurer = "Insurer3",
-                    Premium = 300M,
-                    PremiumTax = 30M,
-                    StartDate = DateTime.Now,
-                    Addons = new List<string>()
-                    {
-                        "Break down cover"
-                    }
+                    CarId = request.CarId,
+                    Make = request.Make,
+                    Model = request.Model,
+                    Mileage = request.Mileage,
+                    Fuel = request.Fuel,
+                    Transmission = request.Transmission,
+                    AddressLine1 = request.AddressLine1,
+                    AddressLine2 = request.AddressLine2,
+                    AddressUid = request.AddressUid,
+                    City = request.City,
+                    County = request.County,
+                    CoverType = request.CoverType,
+                    DateOfBirth = request.DateOfBirth,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    Postcode = request.Postcode,
+                    Registration = request.Registration,
+                    Year = request.Year
                 });
-            await Clients.All.SendAsync(
-                "QuotesResponseHandler",
-                new QuoteResponse()
+
+            await messageSession.Send(
+                new JklInsurerQuoteRequest()
                 {
-                    Uid = Guid.NewGuid(),
-                    Insurer = "Insurer4",
-                    Premium = 400M,
-                    PremiumTax = 40M,
-                    StartDate = DateTime.Now,
-                    Addons = new List<string>()
-                    {
-                        "No claims protection"
-                    }
+                    CarId = request.CarId,
+                    Make = request.Make,
+                    Model = request.Model,
+                    Mileage = request.Mileage,
+                    Fuel = request.Fuel,
+                    Transmission = request.Transmission,
+                    AddressLine1 = request.AddressLine1,
+                    AddressLine2 = request.AddressLine2,
+                    AddressUid = request.AddressUid,
+                    City = request.City,
+                    County = request.County,
+                    CoverType = request.CoverType,
+                    DateOfBirth = request.DateOfBirth,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    Postcode = request.Postcode,
+                    Registration = request.Registration,
+                    Year = request.Year
+                });
+
+            await messageSession.Send(
+                new MnoInsurerQuoteRequest()
+                {
+                    CarId = request.CarId,
+                    Make = request.Make,
+                    Model = request.Model,
+                    Mileage = request.Mileage,
+                    Fuel = request.Fuel,
+                    Transmission = request.Transmission,
+                    AddressLine1 = request.AddressLine1,
+                    AddressLine2 = request.AddressLine2,
+                    AddressUid = request.AddressUid,
+                    City = request.City,
+                    County = request.County,
+                    CoverType = request.CoverType,
+                    DateOfBirth = request.DateOfBirth,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    Postcode = request.Postcode,
+                    Registration = request.Registration,
+                    Year = request.Year
                 });
         }
     }

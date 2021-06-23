@@ -29,7 +29,7 @@
 
             return SignalRConnectionManager.HubConnection.SendAsync(
                 "HandleQuotesRequestAsync",
-                new QuotesRequest
+                new QuoteRequest
                 {
                     FirstName = customer.FirstName,
                     LastName = customer.LastName,

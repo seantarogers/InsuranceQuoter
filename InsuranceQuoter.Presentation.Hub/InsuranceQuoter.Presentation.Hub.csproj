@@ -11,7 +11,6 @@
 
   <ItemGroup>
     <Folder Include="Hubs\" />
-    <Folder Include="Settings\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,9 +22,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\InsuranceQuoter.Infrastructure.Message\InsuranceQuoter.Infrastructure.Message.csproj" />
+    <ProjectReference Include="..\InsuranceQuoter.Infrastructure\InsuranceQuoter.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\launchSettings.json">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>

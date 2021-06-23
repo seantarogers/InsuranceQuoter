@@ -1,6 +1,7 @@
 ﻿namespace InsuranceQuoter.Saga.Service
 {
     using System.Diagnostics.CodeAnalysis;
+    using InsuranceQuoter.Infrastructure.Constants;
     using Topshelf;
 
     [ExcludeFromCodeCoverage]
@@ -20,9 +21,9 @@
                         });
                     x.RunAsLocalSystem();
 
-                    x.SetDescription("InsuranceQuote.Saga.Service");
-                    x.SetDisplayName("InsuranceQuote.Saga.Service");
-                    x.SetServiceName("InsuranceQuote.Saga.Service");
+                    x.SetDescription(MessagingEndpointConstants.SagaService);
+                    x.SetDisplayName(MessagingEndpointConstants.SagaService);
+                    x.SetServiceName(MessagingEndpointConstants.SagaService);
 
                     x.StartAutomaticallyDelayed();
                 });

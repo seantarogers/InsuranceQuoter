@@ -7,9 +7,9 @@
     using InsuranceQuoter.Infrastructure.Message.Responses;
     using NServiceBus;
 
-    public class QuotesRequestHandler : IHandleMessages<QuotesRequest>
+    public class QuotesRequestHandler : IHandleMessages<QuoteRequest>
     {
-        public Task Handle(QuotesRequest message, IMessageHandlerContext context)
+        public Task Handle(QuoteRequest message, IMessageHandlerContext context)
         {
             Console.WriteLine(message.CarId);
 

@@ -1,8 +1,13 @@
 ﻿namespace InsuranceQuoter.Presentation.Hub
 {
     using System.Diagnostics.CodeAnalysis;
+    using System.IO;
+    using InsuranceQuoter.Acl.Insurer.Service.Settings;
+    using InsuranceQuoter.Infrastructure.Constants;
+    using InsuranceQuoter.Infrastructure.Extensions;
     using InsuranceQuoter.Infrastructure.Message.Requests;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Hosting;
     using NServiceBus;
 
@@ -11,10 +16,16 @@
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Build().Run();
+            var applicationSettings = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build()
+                .Get<ApplicationSettings>();
+
+            BuildWebHost(args, applicationSettings).Build().Run();
         }
 
-        public static IHostBuilder BuildWebHost(string[] args) =>
+        public static IHostBuilder BuildWebHost(string[] args, ApplicationSettings applicationSettings) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(
                     c =>
@@ -22,26 +33,50 @@
                             .UseUrls("https://localhost:9001")
                 )
                 .UseNServiceBus(
-                    c =>
+                    _ =>
                     {
-                        var endpointConfiguration = new EndpointConfiguration("InsuranceQuote.Presentation.Hub");
+                        var endpointConfiguration = new EndpointConfiguration(MessagingEndpointConstants.PresentationHub);
 
-                        endpointConfiguration.SendFailedMessagesTo("InsuranceQuote.Presentation.Hub" + ".Error");
-                        //endpointConfiguration.AuditProcessedMessagesTo(EndpointNameConstants.QuoteLeadInfrastructureAuditService);
+                        endpointConfiguration.SendFailedMessagesTo(MessagingEndpointConstants.PresentationHub + ".Error");
+
                         endpointConfiguration.EnableInstallers();
                         TransportExtensions<AzureServiceBusTransport> transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>();
-                        transport.ConnectionString("AnAzureServiceBusConnectionString");
+                        transport.ConnectionString(applicationSettings.ServiceBusEndpoint);
+
+                        transport.SubscriptionNamingConvention(s => s.Replace("Infrastructure.", string.Empty));
+                        transport.SubscriptionRuleNamingConvention(t => t.FullName.Replace("Infrastructure.", string.Empty));
+
+                        endpointConfiguration.AddUnobtrusiveMessaging();
+
+                        endpointConfiguration.LimitMessageProcessingConcurrencyTo(10);
+                        endpointConfiguration.TimeoutManager().LimitMessageProcessingConcurrencyTo(10);
 
                         transport.Routing().RouteToEndpoint(
-                            typeof(QuotesRequest),
-                            "InsuranceQuoter.Saga.Service"
+                            typeof(AbcInsurerQuoteRequest),
+                            MessagingEndpointConstants.AclInsurerService
                         );
 
-                        ConventionsBuilder conventions = endpointConfiguration.Conventions();
-                        conventions.DefiningEventsAs(t => t.Namespace != null && t.Namespace.Contains(".Events"));
-                        conventions.DefiningCommandsAs(t => t.Namespace != null && t.Namespace.Contains(".Commands"));
-                        conventions.DefiningMessagesAs(t => t.Namespace != null && (t.Namespace.Contains(".Requests") || t.Namespace.Contains(".Responses") || t.Namespace.Contains(".Timeouts")));
+                        transport.Routing().RouteToEndpoint(
+                            typeof(DefInsurerQuoteRequest),
+                            MessagingEndpointConstants.AclInsurerService
+                        );
+
+                        transport.Routing().RouteToEndpoint(
+                            typeof(GhiInsurerQuoteRequest),
+                            MessagingEndpointConstants.AclInsurerService
+                        );
+
+                        transport.Routing().RouteToEndpoint(
+                            typeof(JklInsurerQuoteRequest),
+                            MessagingEndpointConstants.AclInsurerService
+                        );
+
+                        transport.Routing().RouteToEndpoint(
+                            typeof(MnoInsurerQuoteRequest),
+                            MessagingEndpointConstants.AclInsurerService
+                        );
 
                         return endpointConfiguration;
                     });
     }
+}

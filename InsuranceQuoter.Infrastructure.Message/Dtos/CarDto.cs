@@ -1,4 +1,4 @@
-﻿namespace InsuranceQuoter.Infrastructure.Dtos
+﻿namespace InsuranceQuoter.Message.Dtos
 {
     using Newtonsoft.Json;
 
