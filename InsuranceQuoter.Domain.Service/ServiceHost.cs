@@ -1,12 +1,14 @@
-﻿namespace InsuranceQuoter.Acl.Insurer.Service
+﻿namespace InsuranceQuoter.Domain.Service
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Threading.Tasks;
-    using InsuranceQuoter.Acl.Insurer.Service.Settings;
+    using InsuranceQuoter.Domain.Service.Settings;
     using InsuranceQuoter.Infrastructure.Constants;
     using InsuranceQuoter.Infrastructure.Extensions;
+    using InsuranceQuoter.Infrastructure.Functions;
+    using InsuranceQuoter.Infrastructure.Providers;
     using Microsoft.Extensions.Configuration;
     using NServiceBus;
     using Topshelf;
@@ -68,10 +70,20 @@
 
         private static EndpointConfiguration BuildEndpointConfiguration(ApplicationSettings applicationSettings)
         {
-            var endpointConfiguration = new EndpointConfiguration(MessagingEndpointConstants.AclInsurerService);
+            var endpointConfiguration = new EndpointConfiguration(MessagingEndpointConstants.DomainService);
 
-            endpointConfiguration.SendFailedMessagesTo(MessagingEndpointConstants.AclInsurerService + ".Error");
+            endpointConfiguration.SendFailedMessagesTo(MessagingEndpointConstants.DomainService + ".Error");
             endpointConfiguration.EnableInstallers();
+
+            var cosmosConfigurationProvider = new CosmosConfigurationProvider(applicationSettings.CosmosEndpoint, applicationSettings.CosmosMasterKey);
+
+            endpointConfiguration.RegisterComponents(
+                container =>
+                {
+                    container.ConfigureComponent<CosmosClientManager>(DependencyLifecycle.SingleInstance);
+                    container.ConfigureComponent(() => cosmosConfigurationProvider, DependencyLifecycle.SingleInstance);
+                });
+
             endpointConfiguration.ConfigureAzureServiceBusTransport(applicationSettings.ServiceBusEndpoint);
             endpointConfiguration.AddUnobtrusiveMessaging();
 

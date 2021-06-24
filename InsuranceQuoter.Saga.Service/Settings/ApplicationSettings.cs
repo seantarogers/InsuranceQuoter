@@ -2,5 +2,6 @@
 {
     public class ApplicationSettings
     {
+        public string ServiceBusEndpoint { get; set; }
     }
 }

@@ -1,9 +1,9 @@
-﻿namespace InsuranceQuoter.Message.Dtos
+﻿namespace InsuranceQuoter.Infrastructure.Message.Dtos
 {
     using System;
     using Newtonsoft.Json;
 
-    public class AddressDto
+    public class AddressDto : Dto
     {
         [JsonProperty("id")]
         public Guid Id { get; set; }

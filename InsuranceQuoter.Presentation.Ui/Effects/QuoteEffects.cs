@@ -1,5 +1,6 @@
 ﻿namespace InsuranceQuoter.Presentation.Ui.Effects
 {
+    using System;
     using System.Threading.Tasks;
     using Fluxor;
     using InsuranceQuoter.Infrastructure.Message.Requests;
@@ -48,7 +49,8 @@
                     Make = car.Make,
                     Mileage = car.Mileage.GetValueOrDefault(),
                     Transmission = car.Transmission,
-                    Year = car.Year.GetValueOrDefault()
+                    Year = car.Year.GetValueOrDefault(),
+                    CorrelationId = Guid.NewGuid()
                 });
         }
     }
