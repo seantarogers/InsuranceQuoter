@@ -1,6 +1,6 @@
 ﻿namespace InsuranceQuoter.Application.Query.Results
 {
-    using InsuranceQuoter.Message.Dtos;
+    using InsuranceQuoter.Infrastructure.Message.Dtos;
 
     public class CarByRegistrationNumberResult : QueryResult
     {

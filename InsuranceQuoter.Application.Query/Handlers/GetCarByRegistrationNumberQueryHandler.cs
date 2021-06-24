@@ -8,7 +8,7 @@
     using InsuranceQuoter.Application.Query.Results;
     using InsuranceQuoter.Infrastructure.Constants;
     using InsuranceQuoter.Infrastructure.Functions;
-    using InsuranceQuoter.Message.Dtos;
+    using InsuranceQuoter.Infrastructure.Message.Dtos;
 
     public class GetCarByRegistrationNumberQueryHandler : IAsyncQueryHandler<GetCarByRegistrationNumberQuery, CarByRegistrationNumberResult>
     {

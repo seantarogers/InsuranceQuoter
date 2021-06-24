@@ -1,12 +1,32 @@
-﻿using System;
-
-namespace InsuranceQuoter.Domain.Service
+﻿namespace InsuranceQuoter.Domain.Service
 {
-    class Program
+    using System.Diagnostics.CodeAnalysis;
+    using InsuranceQuoter.Infrastructure.Constants;
+    using Topshelf;
+
+    [ExcludeFromCodeCoverage]
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
-            Console.WriteLine("Hello World!");
+            HostFactory.Run(
+                x =>
+                {
+                    x.Service<IServiceHost>(
+                        s =>
+                        {
+                            s.ConstructUsing(_ => new ServiceHost());
+                            s.WhenStarted((pc, hostControl) => pc.Start(hostControl));
+                            ServiceConfiguratorExtensions.WhenStopped(s, pc => pc.Stop());
+                        });
+                    x.RunAsLocalSystem();
+
+                    x.SetDescription(MessagingEndpointConstants.DomainService);
+                    x.SetDisplayName(MessagingEndpointConstants.DomainService);
+                    x.SetServiceName(MessagingEndpointConstants.DomainService);
+
+                    x.StartAutomaticallyDelayed();
+                });
         }
     }
 }

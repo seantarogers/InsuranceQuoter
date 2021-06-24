@@ -68,7 +68,9 @@
 
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<PaymentSagaData> mapper)
         {
-            mapper.ConfigureMapping<TakePaymentCommand>(m => m.CorrelationId);
+            mapper.ConfigureMapping<TakePaymentCommand>(m => m.CorrelationId)
+                .ToSaga(sagaData => sagaData.CorrelationId);
+
             mapper.ConfigureMapping<CardPaymentTakenEvent>(m => m.CorrelationId);
             mapper.ConfigureMapping<PolicyBoundEvent>(m => m.CorrelationId);
             mapper.ConfigureMapping<PolicyAddedEvent>(m => m.CorrelationId);

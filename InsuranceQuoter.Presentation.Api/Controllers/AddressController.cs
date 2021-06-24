@@ -5,8 +5,8 @@
     using InsuranceQuoter.Application.Query.Handlers.Cqs.Application.Query.Handlers;
     using InsuranceQuoter.Application.Query.Queries;
     using InsuranceQuoter.Application.Query.Results;
+    using InsuranceQuoter.Infrastructure.Message.Dtos;
     using InsuranceQuoter.Infrastructure.Message.Responses;
-    using InsuranceQuoter.Message.Dtos;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]

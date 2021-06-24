@@ -14,5 +14,16 @@
 
             return endpointConfiguration;
         }
+
+        public static EndpointConfiguration ConfigureAzureServiceBusTransport(this EndpointConfiguration endpointConfiguration, string endpoint)
+        {
+            TransportExtensions<AzureServiceBusTransport> transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>();
+            transport.ConnectionString(endpoint);
+
+            transport.SubscriptionNamingConvention(s => s.Replace("Infrastructure.Message.", string.Empty));
+            transport.SubscriptionRuleNamingConvention(t => t.FullName.Replace("Infrastructure.Message.", string.Empty));
+
+            return endpointConfiguration;
+        }
     }
 }

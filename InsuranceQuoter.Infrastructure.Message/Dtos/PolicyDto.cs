@@ -1,6 +1,6 @@
-﻿namespace InsuranceQuoter.Message.Dtos
+﻿namespace InsuranceQuoter.Infrastructure.Message.Dtos
 {
-    public class PolicyDto
+    public class PolicyDto : Dto
     {
     }
 }

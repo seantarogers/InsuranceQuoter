@@ -10,5 +10,6 @@
         public string QuoteReference { get; set; }
         public string PaymentReference { get; set; }
         public string PolicyReference { get; set; }
+        public Guid CorrelationId { get; set; }
     }
 }

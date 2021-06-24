@@ -1,7 +1,7 @@
 ﻿namespace InsuranceQuoter.Application.Query.Results
 {
     using System.Collections.Generic;
-    using InsuranceQuoter.Message.Dtos;
+    using InsuranceQuoter.Infrastructure.Message.Dtos;
 
     public class AddressesByPostcodeResult : QueryResult
     {

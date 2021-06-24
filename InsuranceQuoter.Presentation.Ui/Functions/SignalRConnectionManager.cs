@@ -58,6 +58,10 @@
                 (InsurerContactedEvent _) => { dispatcher.Dispatch(new InsurerContactedAction()); });
 
             HubConnection.On(
+                "AllQuotesRetrievedEventHandler",
+                (AllQuotesRetrievedEvent allQuotesRetrievedEvent) => { dispatcher.Dispatch(new AllQuotesRetrievedAction(allQuotesRetrievedEvent.RiskReference)); });
+
+            HubConnection.On(
                 "PolicyBoundEventHandler",
                 (PolicyBoundEvent policyBoundEvent) =>
                 {

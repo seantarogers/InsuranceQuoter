@@ -52,28 +52,8 @@
                         endpointConfiguration.TimeoutManager().LimitMessageProcessingConcurrencyTo(10);
 
                         transport.Routing().RouteToEndpoint(
-                            typeof(AbcInsurerQuoteRequest),
-                            MessagingEndpointConstants.AclInsurerService
-                        );
-
-                        transport.Routing().RouteToEndpoint(
-                            typeof(DefInsurerQuoteRequest),
-                            MessagingEndpointConstants.AclInsurerService
-                        );
-
-                        transport.Routing().RouteToEndpoint(
-                            typeof(GhiInsurerQuoteRequest),
-                            MessagingEndpointConstants.AclInsurerService
-                        );
-
-                        transport.Routing().RouteToEndpoint(
-                            typeof(JklInsurerQuoteRequest),
-                            MessagingEndpointConstants.AclInsurerService
-                        );
-
-                        transport.Routing().RouteToEndpoint(
-                            typeof(MnoInsurerQuoteRequest),
-                            MessagingEndpointConstants.AclInsurerService
+                            typeof(QuoteRequest),
+                            MessagingEndpointConstants.SagaService
                         );
 
                         return endpointConfiguration;

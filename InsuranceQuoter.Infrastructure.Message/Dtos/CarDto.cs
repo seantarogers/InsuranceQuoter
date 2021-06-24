@@ -1,8 +1,8 @@
-﻿namespace InsuranceQuoter.Message.Dtos
+﻿namespace InsuranceQuoter.Infrastructure.Message.Dtos
 {
     using Newtonsoft.Json;
 
-    public class CarDto
+    public class CarDto : Dto
     {
         [JsonProperty("id")]
         public string Id { get; set; }
