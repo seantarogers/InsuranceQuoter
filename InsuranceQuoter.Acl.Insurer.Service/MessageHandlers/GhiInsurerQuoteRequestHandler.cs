@@ -18,6 +18,7 @@
             return context.Reply(
                 new QuoteResponse
                 {
+                    CorrelationId = message.CorrelationId,
                     Uid = Guid.NewGuid(),
                     Insurer = "Ghi Insurer PLC",
                     Premium = 950M,

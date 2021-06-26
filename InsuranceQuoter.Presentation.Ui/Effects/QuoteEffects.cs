@@ -23,7 +23,7 @@
         }
 
         [EffectMethod]
-        public Task Handle(AllRiskCapturedAction action, IDispatcher dispatcher)
+        public Task Handle(AllRiskCapturedAction action, IDispatcher _)
         {
             CustomerModel customer = customerState.Value.Model;
             CarModel car = carState.Value.Model;
@@ -32,6 +32,7 @@
                 "HandleQuotesRequestAsync",
                 new QuoteRequest
                 {
+                    UserName = action.UserName,
                     FirstName = customer.FirstName,
                     LastName = customer.LastName,
                     DateOfBirth = customer.DateOfBirth.GetValueOrDefault(),

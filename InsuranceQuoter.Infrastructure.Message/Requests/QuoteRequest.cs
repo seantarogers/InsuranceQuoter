@@ -4,7 +4,6 @@
 
     public class QuoteRequest : Message
     {
-        public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
@@ -23,5 +22,6 @@
         public string Transmission { get; set; }
         public string Registration { get; set; }
         public string CoverType { get; set; }
+        public string UserName { get; set; }
     }
 }
