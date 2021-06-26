@@ -2,7 +2,7 @@
 {
     using System;
 
-    public record AllQuotesRetrievedAction(Guid RiskReference)
+    public record RiskReferenceGeneratedAction(Guid RiskReference)
     {
     }
 }

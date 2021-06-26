@@ -1,16 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.19.0" />
     <PackageReference Include="NServiceBus" Version="7.4.7" />
+    <PackageReference Include="NServiceBus.Transport.AzureServiceBus" Version="1.9.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InsuranceQuoter.Infrastructure.Message\InsuranceQuoter.Infrastructure.Message.csproj" />
   </ItemGroup>
 
 </Project>

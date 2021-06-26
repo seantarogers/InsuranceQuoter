@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class AllQuotesRetrievedEvent : Message
+    public class RiskReferenceGeneratedEvent : Message
     {
         public Guid RiskReference { get; set; }
     }

@@ -49,16 +49,14 @@
             if (Data.NumberOfInsurerRequestsReceived == Data.NumberOfInsurerRequestsSent)
             {
                 MarkAsComplete();
-
-                return context.Publish(
-                    new AllQuotesRetrievedEvent()
-                    {
-                        RiskReference = Data.RiskReference,
-                        CorrelationId = message.CorrelationId
-                    });
             }
 
-            return Task.CompletedTask;
+            return context.Publish(
+                new RiskReferenceGeneratedEvent
+                {
+                    RiskReference = Data.RiskReference,
+                    CorrelationId = message.CorrelationId
+                });
         }
 
         public Task Handle(QuoteResponse message, IMessageHandlerContext context)
@@ -70,13 +68,6 @@
             if (Data.NumberOfInsurerRequestsReceived == Data.NumberOfInsurerRequestsSent && Data.RiskAdded)
             {
                 MarkAsComplete();
-
-                return context.Publish(
-                    new AllQuotesRetrievedEvent
-                    {
-                        RiskReference = Data.RiskReference,
-                        CorrelationId = message.CorrelationId
-                    });
             }
 
             return ReplyToOriginator(context, message);
@@ -91,7 +82,7 @@
         }
 
         private static AddRiskCommand BuildAddRiskCommand(QuoteRequest message) =>
-            new AddRiskCommand
+            new()
             {
                 CarId = message.CarId,
                 Make = message.Make,

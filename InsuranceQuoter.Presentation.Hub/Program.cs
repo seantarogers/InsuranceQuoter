@@ -40,16 +40,14 @@
                         endpointConfiguration.SendFailedMessagesTo(MessagingEndpointConstants.PresentationHub + ".Error");
 
                         endpointConfiguration.EnableInstallers();
-                        TransportExtensions<AzureServiceBusTransport> transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>();
-                        transport.ConnectionString(applicationSettings.ServiceBusEndpoint);
 
-                        transport.SubscriptionNamingConvention(s => s.Replace("Infrastructure.", string.Empty));
-                        transport.SubscriptionRuleNamingConvention(t => t.FullName.Replace("Infrastructure.", string.Empty));
-
+                        endpointConfiguration.ConfigureAzureServiceBusTransport(applicationSettings.ServiceBusEndpoint);
                         endpointConfiguration.AddUnobtrusiveMessaging();
 
                         endpointConfiguration.LimitMessageProcessingConcurrencyTo(10);
                         endpointConfiguration.TimeoutManager().LimitMessageProcessingConcurrencyTo(10);
+
+                        TransportExtensions<AzureServiceBusTransport> transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>();
 
                         transport.Routing().RouteToEndpoint(
                             typeof(QuoteRequest),
