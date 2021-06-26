@@ -12,8 +12,7 @@
     {
         public Task Handle(JklInsurerQuoteRequest message, IMessageHandlerContext context)
         {
-            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
-            Thread.Sleep(3000);
+            Thread.Sleep(2500);
 
             return context.Reply(
                 new QuoteResponse

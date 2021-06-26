@@ -1,7 +1,6 @@
 ﻿namespace InsuranceQuoter.Presentation.Ui.Actions
 {
-    public record CardAuthorisedAction
+    public record PurchaseOperationCompletedAction
     {
-        
     }
 }

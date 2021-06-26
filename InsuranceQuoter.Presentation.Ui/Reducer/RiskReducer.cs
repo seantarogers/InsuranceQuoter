@@ -7,10 +7,10 @@
     public class RiskReducer
     {
         [ReducerMethod]
-        public static RiskState Handle(RiskState state, RiskReferenceGeneratedAction action) =>
-            new RiskState()
+        public static RiskState Handle(RiskState state, RiskUidGeneratedAction action) =>
+            new()
             {
-                RiskReference = action.RiskReference
+                RiskUid = action.RiskUid
             };
     }
 }

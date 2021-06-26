@@ -1,6 +1,4 @@
 ﻿namespace InsuranceQuoter.Presentation.Ui.Actions
 {
-    public record PolicyBoundAction(string ReferenceNumber)
-    {
-    }
+    public record PolicyBoundAction;
 }

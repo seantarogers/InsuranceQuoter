@@ -1,13 +1,5 @@
 ﻿namespace InsuranceQuoter.Presentation.Ui.Effects
 {
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Fluxor;
-    using InsuranceQuoter.Presentation.Ui.Actions;
-    using InsuranceQuoter.Presentation.Ui.Models;
-    using InsuranceQuoter.Presentation.Ui.Store.Payment;
-    using InsuranceQuoter.Presentation.Ui.Store.Quotes;
-
     public class PolicyEffects
     {
         //private readonly IDispatcher dispatcher;
@@ -25,7 +17,7 @@
         //public Task Handle(PaymentRequestedAction action, IDispatcher dispatcher)
         //{
         //    QuoteModel selectedQuote = quoteState.Value.Model.Single(a => a.Selected);
-        //    string policyReference = paymentState.Value.PolicyReference;
+        //    string policyReference = paymentState.Value.PolicyUid;
 
         //    dispatcher.Dispatch(new PolicyPurchasedAction(policyReference, selectedQuote.Premium));
 

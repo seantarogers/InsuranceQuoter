@@ -3,12 +3,15 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Fluxor;
     using InsuranceQuoter.Presentation.Ui.Actions;
+    using InsuranceQuoter.Presentation.Ui.Constants;
     using InsuranceQuoter.Presentation.Ui.Models;
     using InsuranceQuoter.Presentation.Ui.Store.Payment;
     using InsuranceQuoter.Presentation.Ui.Store.Quotes;
     using Microsoft.AspNetCore.Components;
+    using Microsoft.AspNetCore.Components.Authorization;
 
     public partial class Quotes
     {
@@ -17,6 +20,9 @@
 
         [Inject]
         public IState<PaymentState> PaymentState { get; set; }
+
+        [Inject]
+        public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -51,12 +57,15 @@
             NavigationManager.NavigateTo("car");
         }
 
-        private void HandleValidSubmit()
+        private async Task HandleValidSubmit()
         {
             NavigationManager.NavigateTo("paymentprogress");
 
+            AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            string authenticatedUserEmailAddress = authenticationState.User.Claims.Single(a => a.Type == UiConstants.EmailClaimType).Value;
+
             Dispatcher.Dispatch(
-                new PaymentRequestedAction(PaymentModel.CardNumber));
+                new PaymentRequestedAction(PaymentModel.CardNumber, authenticatedUserEmailAddress));
         }
     }
 }

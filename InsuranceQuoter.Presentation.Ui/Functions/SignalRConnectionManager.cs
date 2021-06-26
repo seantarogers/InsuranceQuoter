@@ -22,52 +22,57 @@
         public async Task Initialize()
         {
             HubConnection = new HubConnectionBuilder()
-                .WithUrl("https://localhost:9001/quotehub")
+                .WithUrl("https://localhost:9001/quotehub") //TODO PUT IN CONFIG
                 .Build();
 
             await HubConnection.StartAsync();
 
             HubConnection.On(
                 "QuoteResponseHandler",
-                (QuoteResponse quoteResponse) =>
+                (QuoteResponse response) =>
                 {
                     dispatcher.Dispatch(
                         new QuoteReceivedAction(
-                            quoteResponse.Uid,
-                            quoteResponse.Insurer,
-                            quoteResponse.Premium,
-                            quoteResponse.Addons,
-                            quoteResponse.StartDate,
-                            quoteResponse.PremiumTax));
+                            response.Uid,
+                            response.Insurer,
+                            response.Premium,
+                            response.Addons,
+                            response.StartDate,
+                            response.PremiumTax));
                 });
 
             HubConnection.On(
-                "PaymentProviderContactedEventHandler",
-                (PaymentProviderContactedEvent _) => { dispatcher.Dispatch(new PaymentProviderContactedAction()); });
+                "ReadyToContactPaymentProviderEventHandler",
+                (ReadyToContactPaymentProviderEvent _) => { dispatcher.Dispatch(new ReadyToContactPaymentProviderAction()); });
 
             HubConnection.On(
-                "CardAuthorisedEventHandler",
-                (CardPaymentTakenEvent _) => { dispatcher.Dispatch(new CardAuthorisedAction()); });
+                "CardPaymentTakenEventHandler",
+                (CardPaymentTakenEvent _) => { dispatcher.Dispatch(new CardPaymentTakenAction()); });
 
             HubConnection.On(
-                "PaymentTakenEventHandler",
-                (PaymentTakenEvent _) => { dispatcher.Dispatch(new PaymentTakenAction()); });
+                "ReadyToBindPolicyWithInsurerEventHandler",
+                (ReadyToBindPolicyWithInsurerEvent _) => { dispatcher.Dispatch(new ReadyToBindPolicyWithInsurerAction()); });
 
             HubConnection.On(
-                "InsurerContactedEventHandler",
-                (InsurerContactedEvent _) => { dispatcher.Dispatch(new InsurerContactedAction()); });
-
-            HubConnection.On(
-                "RiskReferenceGeneratedEventHandler",
-                (RiskReferenceGeneratedEvent riskReferenceGeneratedEvent) => { dispatcher.Dispatch(new RiskReferenceGeneratedAction(riskReferenceGeneratedEvent.RiskReference)); });
+                "RiskUidGeneratedEventHandler",
+                (RiskUidGeneratedEvent @event) => { dispatcher.Dispatch(new RiskUidGeneratedAction(@event.RiskUid)); });
 
             HubConnection.On(
                 "PolicyBoundEventHandler",
-                (PolicyBoundEvent policyBoundEvent) =>
-                {
-                    dispatcher.Dispatch(new PolicyBoundAction(policyBoundEvent.PolicyReference));
+                (PolicyBoundEvent _) => { dispatcher.Dispatch(new PolicyBoundAction()); });
 
-                    Task.Delay(TimeSpan.FromMilliseconds(1000)).ContinueWith(_ => { dispatcher.Dispatch(new PurchaseCompletedAction()); }).GetAwaiter().GetResult();
+            HubConnection.On(
+                "ReadyToStorePolicyEventHandler",
+                (ReadyToStorePolicyEvent _) => { dispatcher.Dispatch(new ReadyToStorePolicyAction()); });
+
+            HubConnection.On(
+                "PurchaseAndBindCompletedEventHandler",
+                (PurchaseAndBindCompletedEvent @event) =>
+                {
+                    dispatcher.Dispatch(new PolicyPurchaseAndBindCompletedAction(@event.InsurerName, @event.PolicyUid));
+
+                    Task.Delay(TimeSpan.FromMilliseconds(1000)).ContinueWith(
+                        _ => { dispatcher.Dispatch(new PurchaseOperationCompletedAction()); }).GetAwaiter().GetResult();
                 });
         }
     }

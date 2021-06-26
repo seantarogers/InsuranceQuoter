@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 
   <ItemGroup>

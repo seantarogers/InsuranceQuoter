@@ -12,7 +12,6 @@
     {
         public Task Handle(GhiInsurerQuoteRequest message, IMessageHandlerContext context)
         {
-            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
             Thread.Sleep(500);
 
             return context.Reply(

@@ -2,13 +2,5 @@
 {
     using InsuranceQuoter.Application.Query.Results;
 
-    public class GetAddressesByPostCodeQuery : Query<AddressesByPostcodeResult>
-    {
-        public GetAddressesByPostCodeQuery(string postCode)
-        {
-            PostCode = postCode;
-        }
-
-        public string PostCode { get; }
-    }
+    public record GetAddressesByPostCodeQuery(string Postcode) : Query<AddressesByPostcodeResult>;
 }

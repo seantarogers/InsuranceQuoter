@@ -12,8 +12,7 @@
     {
         public Task Handle(MnoInsurerQuoteRequest message, IMessageHandlerContext context)
         {
-            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
-            Thread.Sleep(4000);
+            Thread.Sleep(800);
             return context.Reply(
                 new QuoteResponse
                 {

@@ -4,6 +4,8 @@
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Threading.Tasks;
+    using InsuranceQuoter.Application.Command.Handlers;
+    using InsuranceQuoter.Application.Query.Handlers;
     using InsuranceQuoter.Domain.Service.Settings;
     using InsuranceQuoter.Infrastructure.Constants;
     using InsuranceQuoter.Infrastructure.Extensions;
@@ -16,13 +18,10 @@
     [ExcludeFromCodeCoverage]
     public class ServiceHost : IServiceHost
     {
-        private static HostControl hostControl;
         private static IEndpointInstance endpointInstance;
 
         public bool Start(HostControl topshelfHostControl = null)
         {
-            hostControl = topshelfHostControl;
-
             var applicationSettings = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
@@ -82,6 +81,9 @@
                 {
                     container.ConfigureComponent<CosmosClientManager>(DependencyLifecycle.SingleInstance);
                     container.ConfigureComponent(() => cosmosConfigurationProvider, DependencyLifecycle.SingleInstance);
+                    container.ConfigureComponent<AddRiskCommandHandler>(DependencyLifecycle.InstancePerUnitOfWork);
+                    container.ConfigureComponent<AddPolicyCommandHandler>(DependencyLifecycle.InstancePerUnitOfWork);
+                    container.ConfigureComponent<GetRiskByUidQueryHandler>(DependencyLifecycle.InstancePerUnitOfWork);
                 });
 
             endpointConfiguration.ConfigureAzureServiceBusTransport(applicationSettings.ServiceBusEndpoint);

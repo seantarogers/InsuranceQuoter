@@ -7,7 +7,7 @@
     using InsuranceQuoter.Presentation.Ui.Models;
     using InsuranceQuoter.Presentation.Ui.Store.Quotes;
 
-    public static class QuotesReducer
+    public static class QuoteReducer
     {
         [ReducerMethod]
         public static QuoteState Handle(QuoteState state, QuoteReceivedAction action)

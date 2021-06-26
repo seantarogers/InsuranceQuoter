@@ -4,6 +4,6 @@
 
     public record RiskState
     {
-        public Guid RiskReference { get; init; }
+        public Guid RiskUid { get; init; }
     }
 }

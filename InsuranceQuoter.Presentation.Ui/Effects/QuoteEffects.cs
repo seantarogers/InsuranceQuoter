@@ -29,7 +29,7 @@
             CarModel car = carState.Value.Model;
 
             return SignalRConnectionManager.HubConnection.SendAsync(
-                "HandleQuotesRequestAsync",
+                "HandleQuotesRequest",
                 new QuoteRequest
                 {
                     UserName = action.UserName,
@@ -38,10 +38,10 @@
                     DateOfBirth = customer.DateOfBirth.GetValueOrDefault(),
                     AddressLine1 = customer.AddressLine1,
                     AddressLine2 = customer.AddressLine2,
+                    AddressUid = customer.AddressUid,
                     City = customer.City,
                     County = customer.County,
                     Postcode = customer.Postcode,
-                    AddressUid = customer.AddressUid,
                     CoverType = car.CoverType,
                     CarId = car.Id,
                     Model = car.Model,
@@ -51,7 +51,7 @@
                     Mileage = car.Mileage.GetValueOrDefault(),
                     Transmission = car.Transmission,
                     Year = car.Year.GetValueOrDefault(),
-                    CorrelationId = Guid.NewGuid()
+                    CorrelationId = Guid.NewGuid(),
                 });
         }
     }

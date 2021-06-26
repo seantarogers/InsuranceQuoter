@@ -20,7 +20,7 @@
 
         public async Task<AddressesByPostcodeResult> HandleAsync(GetAddressesByPostCodeQuery query)
         {
-            var sql = $"SELECT * FROM c WHERE c.postcode = '{query.PostCode}'";
+            var sql = $"SELECT * FROM c WHERE c.postcode = '{query.Postcode}'";
 
             IEnumerable<AddressDto> addressDtos = await cosmosClientManager.GetItemsAsync<AddressDto>(CosmosConstants.AddressContainerId, CosmosConstants.DatabaseId, sql);
 

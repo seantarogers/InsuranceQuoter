@@ -6,18 +6,18 @@
     using Microsoft.AspNetCore.SignalR;
     using NServiceBus;
 
-    public class RiskReferenceGeneratedEventHandler : IHandleMessages<RiskReferenceGeneratedEvent>
+    public class CardPaymentTakenEventHandler : IHandleMessages<CardPaymentTakenEvent>
     {
         private readonly IHubContext<QuoteHub> quoteHubContext;
 
-        public RiskReferenceGeneratedEventHandler(IHubContext<QuoteHub> quoteHubContext)
+        public CardPaymentTakenEventHandler(IHubContext<QuoteHub> quoteHubContext)
         {
             this.quoteHubContext = quoteHubContext;
         }
 
-        public Task Handle(RiskReferenceGeneratedEvent message, IMessageHandlerContext context) =>
+        public Task Handle(CardPaymentTakenEvent message, IMessageHandlerContext context) =>
             quoteHubContext.Clients.All.SendAsync(
-                "RiskReferenceGeneratedEventHandler",
+                "CardPaymentTakenEventHandler",
                 message);
     }
 }
