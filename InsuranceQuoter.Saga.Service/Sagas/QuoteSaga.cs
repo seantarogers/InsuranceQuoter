@@ -27,7 +27,7 @@
             await context.Send(addRiskCommand).ConfigureAwait(false);
 
             var abcInsurerQuoteRequest = BuildInsurerSpecificRequest<AbcInsurerQuoteRequest>(Data.QuoteRequest, message.CorrelationId);
-            var defInsurerQuoteRequest = BuildInsurerSpecificRequest<AbcInsurerQuoteRequest>(Data.QuoteRequest, message.CorrelationId);
+            var defInsurerQuoteRequest = BuildInsurerSpecificRequest<DefInsurerQuoteRequest>(Data.QuoteRequest, message.CorrelationId);
             var ghiInsurerQuoteRequest = BuildInsurerSpecificRequest<GhiInsurerQuoteRequest>(Data.QuoteRequest, message.CorrelationId);
             var jklInsurerQuoteRequest = BuildInsurerSpecificRequest<JklInsurerQuoteRequest>(Data.QuoteRequest, message.CorrelationId);
             var mnoInsurerQuoteRequest = BuildInsurerSpecificRequest<MnoInsurerQuoteRequest>(Data.QuoteRequest, message.CorrelationId);
@@ -44,7 +44,7 @@
             Data.SagaState = QuoteSagaStates.RiskAdded;
             Data.SagaStateDate = DateTime.UtcNow;
             Data.RiskAdded = true;
-            Data.RiskReference = message.RiskReference;
+            Data.RiskUid = message.RiskUid;
 
             if (Data.NumberOfInsurerRequestsReceived == Data.NumberOfInsurerRequestsSent)
             {
@@ -52,9 +52,9 @@
             }
 
             return context.Publish(
-                new RiskReferenceGeneratedEvent
+                new RiskUidGeneratedEvent
                 {
-                    RiskReference = Data.RiskReference,
+                    RiskUid = Data.RiskUid,
                     CorrelationId = message.CorrelationId
                 });
         }

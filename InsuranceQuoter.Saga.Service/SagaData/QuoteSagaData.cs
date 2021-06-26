@@ -8,7 +8,7 @@
     {
         public string SagaState { get; set; }
         public DateTime SagaStateDate { get; set; }
-        public Guid RiskReference { get; set; }
+        public Guid RiskUid { get; set; }
         public int NumberOfInsurerRequestsSent { get; set; }
         public int NumberOfInsurerRequestsReceived { get; set; }
         public QuoteRequest QuoteRequest { get; set; }

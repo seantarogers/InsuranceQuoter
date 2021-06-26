@@ -1,7 +1,9 @@
 ﻿namespace InsuranceQuoter.Infrastructure.Message.Events
 {
+    using System;
+
     public class PolicyBoundEvent : Message
     {
-        public string PolicyReference { get; set; }
+        public Guid PolicyUid { get; set; }
     }
 }

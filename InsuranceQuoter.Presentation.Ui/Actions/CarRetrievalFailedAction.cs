@@ -1,6 +1,4 @@
 ﻿namespace InsuranceQuoter.Presentation.Ui.Actions
 {
-    public record CarRetrievalFailedAction
-    {
-    }
+    public record CarRetrievalFailedAction;
 }

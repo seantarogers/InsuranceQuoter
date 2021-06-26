@@ -1,5 +1,4 @@
 ﻿@page "/paymentprogress"
-
 @using Microsoft.AspNetCore.Authorization
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
@@ -7,7 +6,6 @@
 
 @if (PolicyBound == false)
 {
-
     <h1 class="page-title">Please wait whilst we place your car on cover...</h1>
 
     <div class="form-group">
@@ -28,5 +26,17 @@
 }
 else
 {
-    <h1 class="page-title">Your policy has been successfully purchased!</h1>
+    <div>
+        <div class="card">
+            <div class="card-header"><strong>Your car is now on cover!</strong></div>
+            <div class="card-body">
+
+                <p class="card-text"><strong>Insurer</strong>: @InsurerName</p>
+                <p class="card-text"><strong>Policy Reference</strong>: @PolicyUid</p>
+                <p class="card-text"><strong>Cover Type</strong>: @CoverType</p>
+                <p class="card-text"><strong>Car Registration</strong>: @Registration</p>
+
+            </div>
+        </div>
+    </div>
 }

@@ -3,7 +3,5 @@
     using System.Collections.Generic;
     using InsuranceQuoter.Infrastructure.Message.Dtos;
 
-    public record AddressesRetrievedAction(List<AddressDto> Addresses)
-    {
-    }
+    public record AddressesRetrievedAction(List<AddressDto> Addresses);
 }

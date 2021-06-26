@@ -7,7 +7,7 @@
     using InsuranceQuoter.Presentation.Ui.Models;
     using InsuranceQuoter.Presentation.Ui.Store.Quotes;
 
-    public static class QuotesReducer
+    public static class QuoteReducer
     {
         [ReducerMethod]
         public static QuoteState Handle(QuoteState state, QuoteReceivedAction action)
@@ -84,7 +84,7 @@
 
         [ReducerMethod]
         public static QuoteState Handle(QuoteState state, QuotesBackSelectedAction action) =>
-            new QuoteState
+            new()
             {
                 QuoteSelected = false,
                 TimerTicks = 0,
@@ -108,7 +108,7 @@
         [ReducerMethod]
         public static QuoteState Handle(QuoteState state, CloseDialogSelectedAction action)
         {
-            return new QuoteState
+            return new()
             {
                 QuoteSelected = false,
                 Model = state.Model.Select(
@@ -129,8 +129,15 @@
         }
 
         [ReducerMethod]
+        public static QuoteState Handle(QuoteState state, PurchaseOperationCompletedAction action) =>
+            state with
+            {
+                ShowPaymentDialog = false
+            };
+
+        [ReducerMethod]
         public static QuoteState Handle(QuoteState state, InitializeStateAction action) =>
-            new QuoteState()
+            new()
             {
                 Model = new List<QuoteModel>(),
                 QuoteSelected = false,

@@ -116,6 +116,21 @@
                 MessagingEndpointConstants.AclInsurerService
             );
 
+            transport.Routing().RouteToEndpoint(
+                typeof(TakeCardPaymentCommand),
+                MessagingEndpointConstants.AclPaymentProviderService
+            );
+
+            transport.Routing().RouteToEndpoint(
+                typeof(BindPolicyWithInsurerCommand),
+                MessagingEndpointConstants.AclInsurerService
+            );
+
+            transport.Routing().RouteToEndpoint(
+                typeof(AddPolicyCommand),
+                MessagingEndpointConstants.DomainService
+            );
+
             return endpointConfiguration;
         }
 

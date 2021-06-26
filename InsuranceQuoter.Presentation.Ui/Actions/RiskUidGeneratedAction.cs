@@ -2,7 +2,7 @@
 {
     using System;
 
-    public record RiskReferenceGeneratedAction(Guid RiskReference)
+    public record RiskUidGeneratedAction(Guid RiskUid)
     {
     }
 }

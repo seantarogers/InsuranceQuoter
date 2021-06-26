@@ -5,6 +5,7 @@ namespace InsuranceQuoter.Presentation.Ui
     using System.Threading.Tasks;
     using Fluxor;
     using InsuranceQuoter.Presentation.Ui.Functions;
+    using InsuranceQuoter.Presentation.Ui.Providers;
     using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +19,7 @@ namespace InsuranceQuoter.Presentation.Ui
             builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<SignalRConnectionManager>();
             builder.Services.AddScoped<TimerManager>();
+            builder.Services.AddSingleton(new HostNameProvider("https://localhost:44307"));
 
             builder.Services.AddOidcAuthentication(
                 options =>

@@ -1,35 +1,43 @@
 ﻿namespace InsuranceQuoter.Presentation.Ui.Effects
 {
-    using System.Linq;
+    using System.Net.Http;
     using System.Threading.Tasks;
     using Fluxor;
+    using InsuranceQuoter.Infrastructure.Message.Responses;
     using InsuranceQuoter.Presentation.Ui.Actions;
-    using InsuranceQuoter.Presentation.Ui.Models;
-    using InsuranceQuoter.Presentation.Ui.Store.Payment;
-    using InsuranceQuoter.Presentation.Ui.Store.Quotes;
+    using InsuranceQuoter.Presentation.Ui.Providers;
+    using Newtonsoft.Json;
 
     public class PolicyEffects
     {
-        //private readonly IDispatcher dispatcher;
-        //private readonly IState<QuoteState> quoteState;
-        //private readonly IState<PaymentState> paymentState;
+        private readonly HttpClient httpClient;
+        private readonly HostNameProvider hostNameProvider;
 
-        //public PolicyEffects(IState<QuoteState> quoteState, IState<PaymentState> paymentState, IDispatcher dispatcher)
-        //{
-        //    this.quoteState = quoteState;
-        //    this.paymentState = paymentState;
-        //    this.dispatcher = dispatcher;
-        //}
+        public PolicyEffects(HttpClient httpClient, HostNameProvider hostNameProvider)
+        {
+            this.httpClient = httpClient;
+            this.hostNameProvider = hostNameProvider;
+        }
 
-        //[EffectMethod]
-        //public Task Handle(PaymentRequestedAction action, IDispatcher dispatcher)
-        //{
-        //    QuoteModel selectedQuote = quoteState.Value.Model.Single(a => a.Selected);
-        //    string policyReference = paymentState.Value.PolicyReference;
+        [EffectMethod]
+        public async Task Handle(PoliciesRequestedAction action, IDispatcher dispatcher)
+        {
+            var url = $"{hostNameProvider.PresentationApiHost}/Policies/{action.UserName}";
 
-        //    dispatcher.Dispatch(new PolicyPurchasedAction(policyReference, selectedQuote.Premium));
+            HttpResponseMessage response = await httpClient.GetAsync(url).ConfigureAwait(false);
 
-        //    return Task.CompletedTask;
-        //}
+            if (!response.IsSuccessStatusCode)
+            {
+                dispatcher.Dispatch(new PoliciesRetrievalFailedAction());
+
+                return;
+            }
+
+            string jsonString = await response.Content.ReadAsStringAsync();
+            var policiesResponse = JsonConvert.DeserializeObject<PoliciesResponse>(jsonString);
+
+            dispatcher.Dispatch(
+                new PoliciesRetrievedAction(policiesResponse.Policies));
+        }
     }
 }

@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using InsuranceQuoter.Infrastructure.Exceptions;
     using InsuranceQuoter.Infrastructure.Message.Dtos;
     using InsuranceQuoter.Infrastructure.Providers;
     using Microsoft.Azure.Cosmos;
@@ -30,6 +31,29 @@
             FeedResponse<TDto> feedResponse = await feedIterator.ReadNextAsync().ConfigureAwait(false);
 
             return feedResponse.ToList();
+        }
+
+        public async Task<TDto> GetItemAsync<TDto>(string containerId, string databaseId, string sql)
+            where TDto : Dto
+        {
+            Database database = client.GetDatabase(databaseId);
+            Container container = client.GetContainer(database.Id, containerId);
+
+            FeedIterator<TDto> feedIterator = container.GetItemQueryIterator<TDto>(
+                new QueryDefinition(sql),
+                null,
+                new QueryRequestOptions());
+
+            FeedResponse<TDto> feedResponse = await feedIterator.ReadNextAsync().ConfigureAwait(false);
+
+            TDto? item = feedResponse.ToList().SingleOrDefault();
+
+            if (item == default)
+            {
+                throw new ItemNotFoundInCosmosException();
+            }
+
+            return item;
         }
 
         public Task CreateItemAsync<TDto>(TDto dto, string databaseId, string containerId, string partitionKey)

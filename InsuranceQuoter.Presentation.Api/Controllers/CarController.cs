@@ -29,13 +29,13 @@
             return Ok(
                 new CarResponse
                 {
-                    Id = result.Car.Id,
-                    Fuel = result.Car.FuelType,
-                    Make = result.Car.Make,
-                    Mileage = result.Car.Mileage,
-                    Model = result.Car.Model,
-                    Transmission = result.Car.TransmissionType,
-                    Year = result.Car.YearOfManufacture
+                    Id = result.CarDto.Id,
+                    Fuel = result.CarDto.FuelType,
+                    Make = result.CarDto.Make,
+                    Mileage = result.CarDto.Mileage,
+                    Model = result.CarDto.Model,
+                    Transmission = result.CarDto.TransmissionType,
+                    Year = result.CarDto.YearOfManufacture
                 });
         }
     }

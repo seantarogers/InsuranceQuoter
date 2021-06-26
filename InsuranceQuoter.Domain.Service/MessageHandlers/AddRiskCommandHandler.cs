@@ -2,62 +2,53 @@
 {
     using System;
     using System.Threading.Tasks;
-    using InsuranceQuoter.Infrastructure.Constants;
-    using InsuranceQuoter.Infrastructure.Functions;
+    using InsuranceQuoter.Application.Command.Handlers;
+    using InsuranceQuoter.Application.Command.Results;
     using InsuranceQuoter.Infrastructure.Message.Commands;
-    using InsuranceQuoter.Infrastructure.Message.Dtos;
     using InsuranceQuoter.Infrastructure.Message.Events;
     using NServiceBus;
+    using DomainCommands = InsuranceQuoter.Application.Command.Commands;
 
     public class AddRiskCommandHandler : IHandleMessages<AddRiskCommand>
     {
-        private readonly CosmosClientManager cosmosClientManager;
+        private readonly IAsyncCommandHandler<DomainCommands.AddRiskCommand, AddRiskResult> addRiskCommandHandler;
 
-        public AddRiskCommandHandler(CosmosClientManager cosmosClientManager)
+        public AddRiskCommandHandler(IAsyncCommandHandler<DomainCommands.AddRiskCommand, AddRiskResult> addRiskCommandHandler)
         {
-            this.cosmosClientManager = cosmosClientManager;
+            this.addRiskCommandHandler = addRiskCommandHandler;
         }
 
         public async Task Handle(AddRiskCommand message, IMessageHandlerContext context)
         {
             // We would normally revalidate on the server to protect data consistency before submitting
 
-            var riskReference = Guid.NewGuid();
+            await addRiskCommandHandler.HandleAsync(
+                new DomainCommands.AddRiskCommand(
+                    message.AddressLine1,
+                    message.AddressLine2,
+                    message.City,
+                    message.County,
+                    message.Postcode,
+                    message.Model,
+                    message.Transmission,
+                    message.FirstName,
+                    message.LastName,
+                    message.DateOfBirth,
+                    message.AddressUid,
+                    message.Year,
+                    message.Registration,
+                    message.CoverType,
+                    Email: message.UserName,
+                    message.Mileage,
+                    message.Fuel,
+                    message.Make)).ConfigureAwait(false);
 
-            const string RiskDocumentType = "Risk";
-
-            await cosmosClientManager.CreateItemAsync(
-                new RiskDto
-                {
-                    Id = riskReference,
-                    AddressLine1 = message.AddressLine1,
-                    AddressLine2 = message.AddressLine2,
-                    City = message.City,
-                    County = message.County,
-                    Postcode = message.Postcode,
-                    Model = message.Model,
-                    Mileage = message.Mileage,
-                    Fuel = message.Fuel,
-                    Make = message.Make,
-                    Transmission = message.Transmission,
-                    FirstName = message.FirstName,
-                    LastName = message.LastName,
-                    DateOfBirth = message.DateOfBirth,
-                    AddressUid = message.AddressUid,
-                    Year = message.Year,
-                    Registration = message.Registration,
-                    CoverType = message.CoverType,
-                    Email = message.UserName,
-                    Type = RiskDocumentType
-                },
-                CosmosConstants.DatabaseId,
-                CosmosConstants.CustomerContainer,
-                message.UserName).ConfigureAwait(false);
+            Guid riskUid = addRiskCommandHandler.Result.RiskUid;
 
             await context.Publish(
                 new RiskAddedEvent
                 {
-                    RiskReference = riskReference,
+                    RiskUid = riskUid,
                     CorrelationId = message.CorrelationId
                 }).ConfigureAwait(false);
         }

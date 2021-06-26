@@ -4,6 +4,6 @@
 
     public class RiskAddedEvent : Message
     {
-        public Guid RiskReference { get; set; }
+        public Guid RiskUid { get; set; }
     }
 }

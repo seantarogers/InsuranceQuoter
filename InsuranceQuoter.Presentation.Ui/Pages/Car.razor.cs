@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using Fluxor;
     using InsuranceQuoter.Presentation.Ui.Actions;
+    using InsuranceQuoter.Presentation.Ui.Constants;
     using InsuranceQuoter.Presentation.Ui.Functions;
     using InsuranceQuoter.Presentation.Ui.Models;
     using InsuranceQuoter.Presentation.Ui.Store.Car;
@@ -44,9 +45,7 @@
             TimerManager.Initialize(NumberOfTicks);
 
             AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-
-            const string EmailClaimType = "email";
-            string authenticatedUserEmailAddress = authenticationState.User.Claims.Single(a => a.Type == EmailClaimType).Value;
+            string authenticatedUserEmailAddress = authenticationState.User.Claims.Single(a => a.Type == UiConstants.EmailClaimType).Value;
 
             Dispatcher.Dispatch(new AllRiskCapturedAction(authenticatedUserEmailAddress));
         }

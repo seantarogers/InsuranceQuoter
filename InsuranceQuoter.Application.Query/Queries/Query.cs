@@ -2,8 +2,6 @@
 {
     using InsuranceQuoter.Application.Query.Results;
 
-    public abstract class Query<TResult>
-        where TResult : QueryResult
-    {
-    }
+    public abstract record Query<TResult>
+        where TResult : QueryResult;
 }

@@ -6,11 +6,12 @@
     using InsuranceQuoter.Presentation.Ui.Models;
     using InsuranceQuoter.Presentation.Ui.Store.Payment;
 
+    //TODO Refactor some duplication
     public class PaymentReducer
     {
         [ReducerMethod]
-        public static PaymentState Handle(PaymentState state, InitializeStateAction action) =>
-            new PaymentState()
+        public static PaymentState Handle(PaymentState _, InitializeStateAction __) =>
+            new()
             {
                 Model = new PaymentModel(),
                 WorkflowStates = new List<string>(),
@@ -18,8 +19,8 @@
             };
 
         [ReducerMethod]
-        public static PaymentState Handle(PaymentState state, PaymentRequestedAction action) =>
-            new PaymentState()
+        public static PaymentState Handle(PaymentState state, PaymentRequestedAction _) =>
+            new()
             {
                 Model = new PaymentModel()
                 {
@@ -30,22 +31,22 @@
             };
 
         [ReducerMethod]
-        public static PaymentState Handle(PaymentState state, PaymentProviderContactedAction action) =>
-            new PaymentState()
+        public static PaymentState Handle(PaymentState state, ReadyToContactPaymentProviderAction _) =>
+            new()
             {
-                Model = new PaymentModel()
+                Model = new PaymentModel
                 {
                     CardNumber = state.Model.CardNumber
                 },
                 PaymentProcessing = true,
                 WorkflowStates = new List<string>
                 {
-                    "Payment provider contacted"
+                    "1. Contacting payment provider to take payment..."
                 }
             };
 
         [ReducerMethod]
-        public static PaymentState Handle(PaymentState state, CardAuthorisedAction action)
+        public static PaymentState Handle(PaymentState state, CardPaymentTakenAction _)
         {
             var workflowStates = new List<string>();
             foreach (string workflowState in state.WorkflowStates)
@@ -53,7 +54,7 @@
                 workflowStates.Add(workflowState);
             }
 
-            workflowStates.Add("Card has been authorised");
+            workflowStates.Add("2. Card has been authorised and payment has been successfully taken...");
 
             return new PaymentState()
             {
@@ -66,7 +67,7 @@
         }
 
         [ReducerMethod]
-        public static PaymentState Handle(PaymentState state, PaymentTakenAction action)
+        public static PaymentState Handle(PaymentState state, ReadyToBindPolicyWithInsurerAction _)
         {
             var workflowStates = new List<string>();
             foreach (string workflowState in state.WorkflowStates)
@@ -74,28 +75,7 @@
                 workflowStates.Add(workflowState);
             }
 
-            workflowStates.Add("Payment has been taken");
-
-            return new PaymentState()
-            {
-                Model = new PaymentModel
-                {
-                    CardNumber = state.Model.CardNumber
-                },
-                WorkflowStates = workflowStates
-            };
-        }
-
-        [ReducerMethod]
-        public static PaymentState Handle(PaymentState state, InsurerContactedAction action)
-        {
-            var workflowStates = new List<string>();
-            foreach (string workflowState in state.WorkflowStates)
-            {
-                workflowStates.Add(workflowState);
-            }
-
-            workflowStates.Add("Contacting Insurer to bind policy");
+            workflowStates.Add("3. Contacting selected Insurer to bind your policy...");
 
             return new PaymentState
             {
@@ -108,7 +88,7 @@
         }
 
         [ReducerMethod]
-        public static PaymentState Handle(PaymentState state, PolicyBoundAction action)
+        public static PaymentState Handle(PaymentState state, PolicyBoundAction _)
         {
             var workflowStates = new List<string>();
             foreach (string workflowState in state.WorkflowStates)
@@ -116,11 +96,55 @@
                 workflowStates.Add(workflowState);
             }
 
-            workflowStates.Add("Policy successfully bound");
+            workflowStates.Add("4. Policy has been successfully bound with the insurer...");
+
+            return new PaymentState
+            {
+                Model = new PaymentModel
+                {
+                    CardNumber = state.Model.CardNumber
+                },
+                WorkflowStates = workflowStates
+            };
+        }
+
+        [ReducerMethod]
+        public static PaymentState Handle(PaymentState state, ReadyToStorePolicyAction _)
+        {
+            var workflowStates = new List<string>();
+            foreach (string workflowState in state.WorkflowStates)
+            {
+                workflowStates.Add(workflowState);
+            }
+
+            workflowStates.Add("5. Preparing to store your policy details for future adjustments and renewal...");
+
+            return new PaymentState
+            {
+                PolicyUid = state.PolicyUid,
+                Model = new PaymentModel
+                {
+                    CardNumber = state.Model.CardNumber
+                },
+                WorkflowStates = workflowStates
+            };
+        }
+
+        [ReducerMethod]
+        public static PaymentState Handle(PaymentState state, PolicyPurchaseAndBindCompletedAction action)
+        {
+            var workflowStates = new List<string>();
+            foreach (string workflowState in state.WorkflowStates)
+            {
+                workflowStates.Add(workflowState);
+            }
+
+            workflowStates.Add("6. Policy stored for future adjustments and renewal");
 
             return new PaymentState()
             {
-                PolicyReference = action.ReferenceNumber,
+                PolicyUid = action.PolicyUid,
+                InsurerName = action.InsurerName,
                 Model = new PaymentModel
                 {
                     CardNumber = state.Model.CardNumber
@@ -131,7 +155,7 @@
         }
 
         [ReducerMethod]
-        public static PaymentState Handle(PaymentState state, PurchaseCompletedAction action)
+        public static PaymentState Handle(PaymentState state, PurchaseOperationCompletedAction _)
         {
             var workflowStates = new List<string>();
             foreach (string workflowState in state.WorkflowStates)
@@ -139,11 +163,12 @@
                 workflowStates.Add(workflowState);
             }
 
-            workflowStates.Add("Purchase completed");
+            workflowStates.Add("7. Purchase and bind completed!");
 
-            return new PaymentState()
+            return new PaymentState() with
             {
-                PolicyReference = state.PolicyReference,
+                PolicyUid = state.PolicyUid,
+                InsurerName = state.InsurerName,
                 Model = new PaymentModel
                 {
                     CardNumber = state.Model.CardNumber

@@ -1,7 +1,9 @@
 ﻿namespace InsuranceQuoter.Infrastructure.Message.Events
 {
+    using System;
+
     public class CardPaymentTakenEvent : Message
     {
-        public string PaymentReference { get; set; }
+        public Guid PaymentUid { get; set; }
     }
 }

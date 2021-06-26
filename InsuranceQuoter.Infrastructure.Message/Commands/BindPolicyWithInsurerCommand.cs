@@ -1,7 +1,10 @@
 ﻿namespace InsuranceQuoter.Infrastructure.Message.Commands
 {
+    using System;
+
     public class BindPolicyWithInsurerCommand : Message
     {
-        public string QuoteReference { get; set; }
+        public Guid QuoteUid { get; set; }
+        public string InsurerName { get; set; }
     }
 }

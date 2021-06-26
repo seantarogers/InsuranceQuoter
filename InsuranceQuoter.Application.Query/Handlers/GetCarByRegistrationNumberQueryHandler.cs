@@ -1,7 +1,5 @@
 ﻿namespace InsuranceQuoter.Application.Query.Handlers
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using InsuranceQuoter.Application.Query.Handlers.Cqs.Application.Query.Handlers;
     using InsuranceQuoter.Application.Query.Queries;
@@ -23,16 +21,9 @@
         {
             var sql = $"SELECT * FROM c WHERE c.registrationNumber = '{query.RegistrationNumber}'";
 
-            IEnumerable<CarDto> carDtos = (await cosmosClientManager.GetItemsAsync<CarDto>(CosmosConstants.CarContainerId, CosmosConstants.DatabaseId, sql)).ToList();
+            var carDto = await cosmosClientManager.GetItemAsync<CarDto>(CosmosConstants.CarContainerId, CosmosConstants.DatabaseId, sql);
 
-            if (!carDtos.Any())
-            {
-                return new CarByRegistrationNumberResult(default);
-            }
-
-            CarDto matchingCar = carDtos.Single();
-
-            return new CarByRegistrationNumberResult(matchingCar);
+            return new CarByRegistrationNumberResult(carDto);
         }
     }
 }
