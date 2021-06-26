@@ -1,6 +1,5 @@
 ﻿namespace InsuranceQuoter.Domain.Service.MessageHandlers
 {
-    using System.Threading;
     using System.Threading.Tasks;
     using InsuranceQuoter.Application.Query.Handlers;
     using InsuranceQuoter.Application.Query.Queries;
@@ -23,17 +22,15 @@
 
         public async Task Handle(AddPolicyCommand message, IMessageHandlerContext context)
         {
-            Thread.Sleep(500);
-
             RiskByUidResult riskByUidResult = await getRiskByUidQueryHandler.HandleAsync(new GetRiskByUidQuery(message.RiskUid)).ConfigureAwait(false);
 
             await addPolicyCommandHandler.HandleAsync(
                 new Application.Command.Commands.AddPolicyCommand(
                     message.PolicyUid,
                     riskByUidResult.RiskDto.Id,
-                    message.Username,
+                    Email: message.Username,
                     riskByUidResult.RiskDto.AddressLine1,
-                    riskByUidResult.RiskDto.AddressLine2,
+                    riskByUidResult.RiskDto.Postcode,
                     riskByUidResult.RiskDto.Model,
                     riskByUidResult.RiskDto.FirstName,
                     riskByUidResult.RiskDto.LastName,

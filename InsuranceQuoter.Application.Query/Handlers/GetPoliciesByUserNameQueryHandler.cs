@@ -1,6 +1,7 @@
 ﻿namespace InsuranceQuoter.Application.Query.Handlers
 {
     using System.Collections.Generic;
+    using System.Threading;
     using System.Threading.Tasks;
     using InsuranceQuoter.Application.Query.Handlers.Cqs.Application.Query.Handlers;
     using InsuranceQuoter.Application.Query.Queries;
@@ -20,6 +21,8 @@
 
         public async Task<PoliciesByUserNameResult> HandleAsync(GetPoliciesByUserNameQuery query)
         {
+            Thread.Sleep(500);
+
             var sql = $"SELECT * FROM c WHERE c.email = '{query.UserName}' AND c.type = 'Policy'";
 
             IEnumerable<PolicyDto> policyDtos = await cosmosClientManager.GetItemsAsync<PolicyDto>(CosmosConstants.CustomerContainerId, CosmosConstants.DatabaseId, sql);
