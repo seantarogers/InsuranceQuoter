@@ -7,7 +7,7 @@
     public class RiskReducer
     {
         [ReducerMethod]
-        public static RiskState Handle(RiskState state, AllQuotesRetrievedAction action) =>
+        public static RiskState Handle(RiskState state, RiskReferenceGeneratedAction action) =>
             new RiskState()
             {
                 RiskReference = action.RiskReference
