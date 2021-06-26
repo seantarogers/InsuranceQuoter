@@ -6,5 +6,7 @@
     {
         [CreditCard]
         public string CardNumber { get; set; }
+
+        public bool TermsAndConditionsChecked { get; set; }
     }
 }
