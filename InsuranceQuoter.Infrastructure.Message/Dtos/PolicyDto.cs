@@ -39,7 +39,7 @@
         public string CoverType { get; set; }
 
         [JsonProperty("expiresOn")]
-        public DateTime ExpiresOne { get; set; }
+        public DateTime ExpiresOn { get; set; }
 
         [JsonProperty("insurerName")]
         public string InsurerName { get; set; }

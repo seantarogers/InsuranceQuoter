@@ -5,21 +5,24 @@
     using Fluxor;
     using InsuranceQuoter.Infrastructure.Message.Responses;
     using InsuranceQuoter.Presentation.Ui.Actions;
+    using InsuranceQuoter.Presentation.Ui.Providers;
     using Newtonsoft.Json;
 
     public class CustomerEffects
     {
         private readonly HttpClient httpClient;
+        private readonly HostNameProvider hostNameProvider;
 
-        public CustomerEffects(HttpClient httpClient)
+        public CustomerEffects(HttpClient httpClient, HostNameProvider hostNameProvider)
         {
             this.httpClient = httpClient;
+            this.hostNameProvider = hostNameProvider;
         }
 
         [EffectMethod]
         public async Task Handle(FindAddressSelectedAction action, IDispatcher dispatcher)
         {
-            string url = "https://localhost:44307/Address/" + action.PostCode;
+            var url = $"{hostNameProvider.PresentationApiHost}/Address/{action.PostCode}";
 
             HttpResponseMessage response = await httpClient.GetAsync(url).ConfigureAwait(false);
 

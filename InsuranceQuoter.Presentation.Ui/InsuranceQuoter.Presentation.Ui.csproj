@@ -20,11 +20,17 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Constants\" />
-    <Folder Include="Store\Policy\" />
+    <Folder Include="Settings\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\InsuranceQuoter.Infrastructure.Message\InsuranceQuoter.Infrastructure.Message.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

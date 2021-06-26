@@ -5,21 +5,24 @@
     using Fluxor;
     using InsuranceQuoter.Infrastructure.Message.Responses;
     using InsuranceQuoter.Presentation.Ui.Actions;
+    using InsuranceQuoter.Presentation.Ui.Providers;
     using Newtonsoft.Json;
 
     public class CarEffects
     {
         private readonly HttpClient httpClient;
+        private readonly HostNameProvider hostNameProvider;
 
-        public CarEffects(HttpClient httpClient)
+        public CarEffects(HttpClient httpClient, HostNameProvider hostNameProvider)
         {
             this.httpClient = httpClient;
+            this.hostNameProvider = hostNameProvider;
         }
 
         [EffectMethod]
         public async Task Handle(FindCarSelectedAction action, IDispatcher dispatcher)
         {
-            string url = "https://localhost:44307/Car/" + action.RegistrationNumber;
+            var url = $"{hostNameProvider.PresentationApiHost}/Car/{action.RegistrationNumber}";
 
             HttpResponseMessage response = await httpClient.GetAsync(url).ConfigureAwait(false);
 

@@ -21,7 +21,7 @@
 
         public async Task HandleAsync(AddPolicyCommand command)
         {
-            const string RiskDocumentType = "Policy";
+            const string PolicyDocumentType = "Policy";
 
             DateTime policyExpiresOn = DateTime.UtcNow.AddYears(1);
 
@@ -39,8 +39,8 @@
                     Registration = command.Registration,
                     CoverType = command.CoverType,
                     Email = command.Email,
-                    Type = RiskDocumentType,
-                    ExpiresOne = policyExpiresOn,
+                    Type = PolicyDocumentType,
+                    ExpiresOn = policyExpiresOn,
                     InsurerName = command.InsurerName,
                     AddOns = command.Addons
                 },

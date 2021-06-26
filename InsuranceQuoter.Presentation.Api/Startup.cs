@@ -15,27 +15,22 @@ namespace InsuranceQuoter.Presentation.Api
 
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IConfigurationRoot configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "InsuranceQuoter.Presentation.Api", Version = "v1" }); });
 
             services.AddCors(options => { options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()); });
 
             services.AddSingleton<CosmosClientManager>();
 
-            var cosmosConfigurationProvider = new CosmosConfigurationProvider(Program.Configuration["CosmosEndpoint"], Program.Configuration["CosmosMasterKey"]);
+            var cosmosConfigurationProvider = new CosmosConfigurationProvider(configuration["CosmosEndpoint"], configuration["CosmosMasterKey"]);
             services.AddSingleton(cosmosConfigurationProvider);
 
             services.AddScoped<IAsyncQueryHandler<GetAddressesByPostCodeQuery, AddressesByPostcodeResult>, GetAddressesByPostcodeQueryHandler>();
             services.AddScoped<IAsyncQueryHandler<GetCarByRegistrationNumberQuery, CarByRegistrationNumberResult>, GetCarByRegistrationNumberQueryHandler>();
+            services.AddScoped<IAsyncQueryHandler<GetPoliciesByUserNameQuery, PoliciesByUserNameResult>, GetPoliciesByUserNameQueryHandler>();
 
             services.AddControllers();
         }

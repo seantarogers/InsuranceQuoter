@@ -41,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsuranceQuoter.Acl.Insurer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsuranceQuoter.Infrastructure.Message", "InsuranceQuoter.Infrastructure.Message\InsuranceQuoter.Infrastructure.Message.csproj", "{2550DDD9-FC11-44AA-B08A-BBA70F89BC70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsuranceQuoter.Acl.PaymentProvider.Service", "InsuranceQuoter.Acl.PaymentProvider.Service\InsuranceQuoter.Acl.PaymentProvider.Service.csproj", "{9F6BF18D-D36E-4057-891C-60C52833E148}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsuranceQuoter.Acl.PaymentProvider.Service", "InsuranceQuoter.Acl.PaymentProvider.Service\InsuranceQuoter.Acl.PaymentProvider.Service.csproj", "{9F6BF18D-D36E-4057-891C-60C52833E148}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

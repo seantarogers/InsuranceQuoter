@@ -69,7 +69,7 @@
 
         [ReducerMethod]
         public static CustomerState Handle(CustomerState state, InitializeStateAction action) =>
-            new CustomerState()
+            new()
             {
                 Model = new CustomerModel(),
                 AddressRetrieved = false,
