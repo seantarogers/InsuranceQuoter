@@ -13,7 +13,7 @@
         public Task Handle(AbcInsurerQuoteRequest message, IMessageHandlerContext context)
         {
             Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
-            Thread.Sleep(2000);
+            Thread.Sleep(500);
 
             return context.Reply(
                 new QuoteResponse

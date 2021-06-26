@@ -107,13 +107,12 @@
 
             mapper.ConfigureMapping<CardPaymentTakenEvent>(m => m.CorrelationId)
                 .ToSaga(sagaData => sagaData.CorrelationId);
-            ;
+
             mapper.ConfigureMapping<PolicyBoundEvent>(m => m.CorrelationId)
                 .ToSaga(sagaData => sagaData.CorrelationId);
-            ;
+
             mapper.ConfigureMapping<PolicyAddedEvent>(m => m.CorrelationId)
                 .ToSaga(sagaData => sagaData.CorrelationId);
-            ;
         }
     }
 }

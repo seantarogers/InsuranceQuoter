@@ -11,8 +11,7 @@
     {
         public Task Handle(TakeCardPaymentCommand message, IMessageHandlerContext context)
         {
-            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
-            Thread.Sleep(2000);
+            Thread.Sleep(500);
 
             return context.Publish(
                 new CardPaymentTakenEvent

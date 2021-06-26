@@ -117,7 +117,7 @@
                 workflowStates.Add(workflowState);
             }
 
-            workflowStates.Add("5. Preparing to store your policy details...");
+            workflowStates.Add("5. Preparing to store your policy details for future adjustments and renewal...");
 
             return new PaymentState
             {
@@ -168,6 +168,7 @@
             return new PaymentState() with
             {
                 PolicyUid = state.PolicyUid,
+                InsurerName = state.InsurerName,
                 Model = new PaymentModel
                 {
                     CardNumber = state.Model.CardNumber

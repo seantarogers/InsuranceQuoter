@@ -20,8 +20,9 @@
             TransportExtensions<AzureServiceBusTransport> transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>();
             transport.ConnectionString(endpoint);
 
-            transport.SubscriptionNamingConvention(s => s.Replace("Infrastructure.Message.", string.Empty));
-            transport.SubscriptionRuleNamingConvention(t => t.FullName.Replace("Infrastructure.Message.", string.Empty));
+            const string InfrastructureMessageEvents = "Infrastructure.Message.Events.";
+            transport.SubscriptionNamingConvention(s => s.Replace(InfrastructureMessageEvents, string.Empty));
+            transport.SubscriptionRuleNamingConvention(t => t.FullName.Replace(InfrastructureMessageEvents, string.Empty));
 
             return endpointConfiguration;
         }

@@ -1,5 +1,6 @@
 ﻿namespace InsuranceQuoter.Domain.Service.MessageHandlers
 {
+    using System.Threading;
     using System.Threading.Tasks;
     using InsuranceQuoter.Application.Query.Handlers;
     using InsuranceQuoter.Application.Query.Queries;
@@ -22,6 +23,8 @@
 
         public async Task Handle(AddPolicyCommand message, IMessageHandlerContext context)
         {
+            Thread.Sleep(500);
+
             RiskByUidResult riskByUidResult = await getRiskByUidQueryHandler.HandleAsync(new GetRiskByUidQuery(message.RiskUid)).ConfigureAwait(false);
 
             await addPolicyCommandHandler.HandleAsync(
