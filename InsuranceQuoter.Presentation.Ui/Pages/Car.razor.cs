@@ -1,16 +1,22 @@
 ﻿namespace InsuranceQuoter.Presentation.Ui.Pages
 {
+    using System.Linq;
+    using System.Threading.Tasks;
     using Fluxor;
     using InsuranceQuoter.Presentation.Ui.Actions;
     using InsuranceQuoter.Presentation.Ui.Functions;
     using InsuranceQuoter.Presentation.Ui.Models;
     using InsuranceQuoter.Presentation.Ui.Store.Car;
     using Microsoft.AspNetCore.Components;
+    using Microsoft.AspNetCore.Components.Authorization;
 
     public partial class Car
     {
         [Inject]
         public IState<CarState> CarState { get; set; }
+
+        [Inject]
+        public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -29,16 +35,20 @@
         {
             Dispatcher.Dispatch(new FindCarSelectedAction(Model.Registration));
         }
-        
-        private void HandleValidSubmit()
+
+        private async Task HandleValidSubmit()
         {
             NavigationManager.NavigateTo("quotes");
 
             const int NumberOfTicks = 10;
-
             TimerManager.Initialize(NumberOfTicks);
-            
-            Dispatcher.Dispatch(new AllRiskCapturedAction());
+
+            AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+            const string EmailClaimType = "email";
+            string authenticatedUserEmailAddress = authenticationState.User.Claims.Single(a => a.Type == EmailClaimType).Value;
+
+            Dispatcher.Dispatch(new AllRiskCapturedAction(authenticatedUserEmailAddress));
         }
     }
 }

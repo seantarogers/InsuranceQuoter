@@ -19,8 +19,6 @@
         [EffectMethod]
         public async Task Handle(FindCarSelectedAction action, IDispatcher dispatcher)
         {
-            await Task.Delay(500);
-
             string url = "https://localhost:44307/Car/" + action.RegistrationNumber;
 
             HttpResponseMessage response = await httpClient.GetAsync(url).ConfigureAwait(false);

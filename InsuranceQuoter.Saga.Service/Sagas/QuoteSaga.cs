@@ -26,11 +26,11 @@
             AddRiskCommand addRiskCommand = BuildAddRiskCommand(message);
             await context.Send(addRiskCommand).ConfigureAwait(false);
 
-            var abcInsurerQuoteRequest = BuildInsurerSpecificRequest<AbcInsurerQuoteRequest>(Data.QuoteRequest);
-            var defInsurerQuoteRequest = BuildInsurerSpecificRequest<AbcInsurerQuoteRequest>(Data.QuoteRequest);
-            var ghiInsurerQuoteRequest = BuildInsurerSpecificRequest<GhiInsurerQuoteRequest>(Data.QuoteRequest);
-            var jklInsurerQuoteRequest = BuildInsurerSpecificRequest<JklInsurerQuoteRequest>(Data.QuoteRequest);
-            var mnoInsurerQuoteRequest = BuildInsurerSpecificRequest<MnoInsurerQuoteRequest>(Data.QuoteRequest);
+            var abcInsurerQuoteRequest = BuildInsurerSpecificRequest<AbcInsurerQuoteRequest>(Data.QuoteRequest, message.CorrelationId);
+            var defInsurerQuoteRequest = BuildInsurerSpecificRequest<AbcInsurerQuoteRequest>(Data.QuoteRequest, message.CorrelationId);
+            var ghiInsurerQuoteRequest = BuildInsurerSpecificRequest<GhiInsurerQuoteRequest>(Data.QuoteRequest, message.CorrelationId);
+            var jklInsurerQuoteRequest = BuildInsurerSpecificRequest<JklInsurerQuoteRequest>(Data.QuoteRequest, message.CorrelationId);
+            var mnoInsurerQuoteRequest = BuildInsurerSpecificRequest<MnoInsurerQuoteRequest>(Data.QuoteRequest, message.CorrelationId);
 
             await context.Send(abcInsurerQuoteRequest).ConfigureAwait(false);
             await context.Send(defInsurerQuoteRequest).ConfigureAwait(false);
@@ -84,6 +84,7 @@
         private static AddRiskCommand BuildAddRiskCommand(QuoteRequest message) =>
             new()
             {
+                UserName = message.UserName,
                 CarId = message.CarId,
                 Make = message.Make,
                 Model = message.Model,
@@ -102,14 +103,14 @@
                 Postcode = message.Postcode,
                 Registration = message.Registration,
                 Year = message.Year,
-                CorrelationId = message.CorrelationId,
-                UserName = message.UserName
+                CorrelationId = message.CorrelationId
             };
 
-        private static TRequest BuildInsurerSpecificRequest<TRequest>(QuoteRequest message)
+        private static TRequest BuildInsurerSpecificRequest<TRequest>(QuoteRequest message, Guid correlationId)
             where TRequest : QuoteRequest, new() =>
             new()
             {
+                CorrelationId = correlationId,
                 CarId = message.CarId,
                 Make = message.Make,
                 Model = message.Model,

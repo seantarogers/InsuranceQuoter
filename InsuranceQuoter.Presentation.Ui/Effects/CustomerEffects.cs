@@ -19,8 +19,6 @@
         [EffectMethod]
         public async Task Handle(FindAddressSelectedAction action, IDispatcher dispatcher)
         {
-            await Task.Delay(500);
-
             string url = "https://localhost:44307/Address/" + action.PostCode;
 
             HttpResponseMessage response = await httpClient.GetAsync(url).ConfigureAwait(false);

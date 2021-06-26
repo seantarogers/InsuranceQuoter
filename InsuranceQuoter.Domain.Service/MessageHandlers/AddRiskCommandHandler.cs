@@ -20,9 +20,11 @@
 
         public async Task Handle(AddRiskCommand message, IMessageHandlerContext context)
         {
-            // Revalidate on the server to protect data consistency before submitting
+            // We would normally revalidate on the server to protect data consistency before submitting
 
             var riskReference = Guid.NewGuid();
+
+            const string RiskDocumentType = "Risk";
 
             await cosmosClientManager.CreateItemAsync(
                 new RiskDto
@@ -45,15 +47,15 @@
                     Year = message.Year,
                     Registration = message.Registration,
                     CoverType = message.CoverType,
-                    Email = "SeanRogers",
-                    Type = "Risk"
+                    Email = message.UserName,
+                    Type = RiskDocumentType
                 },
                 CosmosConstants.DatabaseId,
                 CosmosConstants.CustomerContainer,
-                "SeanRogers").ConfigureAwait(false);
+                message.UserName).ConfigureAwait(false);
 
             await context.Publish(
-                new RiskAddedEvent()
+                new RiskAddedEvent
                 {
                     RiskReference = riskReference,
                     CorrelationId = message.CorrelationId
