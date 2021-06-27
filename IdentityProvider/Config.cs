@@ -21,7 +21,7 @@ namespace IdentityProvider
             new ApiResource[]
             {
                 new ApiResource(
-                    "InsuranceQuoterPresentationApi",
+                    "insurancequoterpresentationapi",
                     "Insurance Quoter API",
                     new[] { "country" })
             };
@@ -38,7 +38,7 @@ namespace IdentityProvider
                     RequirePkce = true,
                     RedirectUris = { "https://localhost:5001/authentication/login-callback" },
                     PostLogoutRedirectUris = { "https://localhost:5001/authentication/logout-callback" },
-                    AllowedScopes = { "openid", "profile", "email" },
+                    AllowedScopes = { "openid", "profile", "email", "insurancequoterpresentationapi" },
                     AllowedCorsOrigins = { "https://localhost:5001" }
                 }
             };

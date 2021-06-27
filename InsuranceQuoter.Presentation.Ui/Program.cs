@@ -20,6 +20,7 @@ namespace InsuranceQuoter.Presentation.Ui
             builder.Services.AddScoped<SignalRConnectionManager>();
             builder.Services.AddScoped<TimerManager>();
             builder.Services.AddSingleton(new HostNameProvider("https://localhost:44307"));
+            builder.Services.AddTransient<AccessTokenExtractor>();
 
             builder.Services.AddOidcAuthentication(
                 options =>
@@ -29,6 +30,9 @@ namespace InsuranceQuoter.Presentation.Ui
                     options.ProviderOptions.RedirectUri = "https://localhost:5001/authentication/login-callback";
                     options.ProviderOptions.PostLogoutRedirectUri = "https://localhost:5001/authentication/logout-callback";
                     options.ProviderOptions.DefaultScopes.Add("email");
+                    options.ProviderOptions.DefaultScopes.Add("profile");
+                    options.ProviderOptions.DefaultScopes.Add("email");
+                    options.ProviderOptions.DefaultScopes.Add("insurancequoterpresentationapi");
                     options.ProviderOptions.ResponseType = "code";
                 });
 

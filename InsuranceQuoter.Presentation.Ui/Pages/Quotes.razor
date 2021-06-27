@@ -1,6 +1,6 @@
 ﻿@page "/quotes"
-@using InsuranceQuoter.Presentation.Ui.Models
 @using Microsoft.AspNetCore.Authorization
+@using InsuranceQuoter.Presentation.Ui.Models
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 @attribute [Authorize]
@@ -9,30 +9,30 @@
 
 <table class="table table-bordered table-hover">
     <thead>
-        <tr>
-            <th scope="col">Premium</th>
-            <th scope="col">Premium Tax</th>
-            <th scope="col">Insurer</th>
-            <th scope="col">StartDate</th>
-            <th scope="col">Included Addons</th>
-            <th scope="col">Buy</th>
-        </tr>
+    <tr>
+        <th scope="col">Premium</th>
+        <th scope="col">Premium Tax</th>
+        <th scope="col">Insurer</th>
+        <th scope="col">StartDate</th>
+        <th scope="col">Included Addons</th>
+        <th scope="col">Buy</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (QuoteModel quote in QuoteModel)
-        {
-            <tr class="@quote.SelectedClass">
-                <td>£@quote.Premium</td>
-                <td>£@quote.PremiumTax</td>
-                <td>@quote.Insurer</td>
-                <td>@quote.StartDate.ToShortDateString()</td>
-                <td>@quote.Addons</td>
+    @foreach (QuoteModel quote in QuoteModel)
+    {
+        <tr class="@quote.SelectedClass">
+            <td>£@quote.Premium</td>
+            <td>£@quote.PremiumTax</td>
+            <td>@quote.Insurer</td>
+            <td>@quote.StartDate.ToShortDateString()</td>
+            <td>@quote.Addons</td>
 
-                <td>
-                    <button value="@quote.Uid" class="btn btn-primary btn-sm" type="button" @onclick="() => QuoteSelected(quote.Uid)">Buy Policy</button>
-                </td>
-            </tr>
-        }
+            <td>
+                <button value="@quote.Uid" class="btn btn-primary btn-sm" type="button" @onclick="() => QuoteSelected(quote.Uid)">Buy Policy</button>
+            </td>
+        </tr>
+    }
     </tbody>
 </table>
 
@@ -58,13 +58,18 @@
                 <div class="modal-body">
 
                     <EditForm Model="@PaymentModel" OnValidSubmit="HandleValidSubmit">
-                        <DataAnnotationsValidator />
-                        <ValidationSummary />
+                        <DataAnnotationsValidator/>
+                        <ValidationSummary/>
 
                         <div class="form-group">
                             <InputText id="cardNumber" class="form-control" @bind-Value="@PaymentModel.CardNumber" placeholder="Enter Card Number"></InputText>
-                            <ValidationMessage For="@(() => PaymentModel.CardNumber)" />
+                            <ValidationMessage For="@(() => PaymentModel.CardNumber)"/>
                         </div>
+                        <div class="form-group">
+                            <InputCheckbox id="termsAndConditions" class="form-control small" @bind-Value="@PaymentModel.AgreeToTermsAndConditions"></InputCheckbox>
+                            <label class="small" for="termsAndConditions">Agree to Terms and Conditions</label>
+                        </div>
+
                         <button type="submit" class="btn btn-success">Make Payment</button>
                     </EditForm>
 
