@@ -1,13 +1,16 @@
 namespace InsuranceQuoter.Presentation.Api
 {
+    using IdentityServer4.AccessTokenValidation;
     using InsuranceQuoter.Application.Query.Handlers;
     using InsuranceQuoter.Application.Query.Handlers.Cqs.Application.Query.Handlers;
     using InsuranceQuoter.Application.Query.Queries;
     using InsuranceQuoter.Application.Query.Results;
     using InsuranceQuoter.Infrastructure.Functions;
     using InsuranceQuoter.Infrastructure.Providers;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc.Authorization;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -32,7 +35,16 @@ namespace InsuranceQuoter.Presentation.Api
             services.AddScoped<IAsyncQueryHandler<GetCarByRegistrationNumberQuery, CarByRegistrationNumberResult>, GetCarByRegistrationNumberQueryHandler>();
             services.AddScoped<IAsyncQueryHandler<GetPoliciesByUserNameQuery, PoliciesByUserNameResult>, GetPoliciesByUserNameQueryHandler>();
 
-            services.AddControllers();
+            AuthorizationPolicy requireAuthenticatedUserPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme).AddIdentityServerAuthentication(
+                options =>
+                {
+                    options.Authority = "https://localhost:5000";
+                    options.ApiName = "insurancequoterpresentationapi";
+                });
+
+            services.AddControllers(configure => configure.Filters.Add(new AuthorizeFilter(requireAuthenticatedUserPolicy)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,13 +58,10 @@ namespace InsuranceQuoter.Presentation.Api
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
-            app.UseCors("Open");
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseCors("Open");
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
