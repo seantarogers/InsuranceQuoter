@@ -9,7 +9,7 @@ namespace IdentityProvider
     public static class Config
     {
         public static IEnumerable<IdentityResource> Ids =>
-            new IdentityResource[]
+            new[]
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
@@ -18,16 +18,16 @@ namespace IdentityProvider
             };
 
         public static IEnumerable<ApiResource> Apis =>
-            new ApiResource[]
+            new[]
             {
                 new ApiResource(
-                    "insurancequoterpresentationapi",
+                    "insurancequoterapi",
                     "Insurance Quoter API",
                     new[] { "country" })
             };
 
         public static IEnumerable<Client> Clients =>
-            new Client[]
+            new[]
             {
                 new Client
                 {
@@ -36,10 +36,10 @@ namespace IdentityProvider
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireClientSecret = false,
                     RequirePkce = true,
-                    RedirectUris = { "https://localhost:5001/authentication/login-callback" },
-                    PostLogoutRedirectUris = { "https://localhost:5001/authentication/logout-callback" },
-                    AllowedScopes = { "openid", "profile", "email", "insurancequoterpresentationapi" },
-                    AllowedCorsOrigins = { "https://localhost:5001" }
+                    RedirectUris = { "https://insurancequoterui.azurewebsites.net/authentication/login-callback" },
+                    PostLogoutRedirectUris = { "https://insurancequoterui.azurewebsites.net/authentication/logout-callback" },
+                    AllowedScopes = { "openid", "profile", "email", "insurancequoterapi" },
+                    AllowedCorsOrigins = { "https://insurancequoterui.azurewebsites.net" }
                 }
             };
     }

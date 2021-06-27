@@ -6,15 +6,18 @@
     using InsuranceQuoter.Infrastructure.Message.Events;
     using InsuranceQuoter.Infrastructure.Message.Responses;
     using InsuranceQuoter.Presentation.Ui.Actions;
+    using InsuranceQuoter.Presentation.Ui.Providers;
     using Microsoft.AspNetCore.SignalR.Client;
 
     public class SignalRConnectionManager
     {
         private readonly IDispatcher dispatcher;
+        private readonly EndpointProvider endpointProvider;
 
-        public SignalRConnectionManager(IDispatcher dispatcher)
+        public SignalRConnectionManager(IDispatcher dispatcher, EndpointProvider endpointProvider)
         {
             this.dispatcher = dispatcher;
+            this.endpointProvider = endpointProvider;
         }
 
         public static HubConnection HubConnection { get; set; }
@@ -22,7 +25,7 @@
         public async Task Initialize()
         {
             HubConnection = new HubConnectionBuilder()
-                .WithUrl("https://localhost:9001/quotehub") //TODO PUT IN CONFIG
+                .WithUrl($"{endpointProvider.HubEndpoint}/quotehub")
                 .Build();
 
             await HubConnection.StartAsync();

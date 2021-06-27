@@ -13,20 +13,20 @@
     public class PolicyEffects
     {
         private readonly HttpClient httpClient;
-        private readonly HostNameProvider hostNameProvider;
+        private readonly EndpointProvider endpointProvider;
         private readonly AccessTokenExtractor accessTokenExtractor;
 
-        public PolicyEffects(HttpClient httpClient, HostNameProvider hostNameProvider, AccessTokenExtractor accessTokenExtractor)
+        public PolicyEffects(HttpClient httpClient, EndpointProvider endpointProvider, AccessTokenExtractor accessTokenExtractor)
         {
             this.httpClient = httpClient;
-            this.hostNameProvider = hostNameProvider;
+            this.endpointProvider = endpointProvider;
             this.accessTokenExtractor = accessTokenExtractor;
         }
 
         [EffectMethod]
         public async Task Handle(PoliciesRequestedAction action, IDispatcher dispatcher)
         {
-            var url = $"{hostNameProvider.PresentationApiHost}/Policies/{action.UserName}";
+            var url = $"{endpointProvider.PresentationApiEndpoint}/Policies/{action.UserName}";
 
             string accessToken = await accessTokenExtractor.Extract().ConfigureAwait(false);
 

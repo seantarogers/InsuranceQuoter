@@ -13,20 +13,20 @@
     public class CarEffects
     {
         private readonly HttpClient httpClient;
-        private readonly HostNameProvider hostNameProvider;
+        private readonly EndpointProvider endpointProvider;
         private readonly AccessTokenExtractor accessTokenExtractor;
 
-        public CarEffects(HttpClient httpClient, HostNameProvider hostNameProvider, AccessTokenExtractor accessTokenExtractor)
+        public CarEffects(HttpClient httpClient, EndpointProvider endpointProvider, AccessTokenExtractor accessTokenExtractor)
         {
             this.httpClient = httpClient;
-            this.hostNameProvider = hostNameProvider;
+            this.endpointProvider = endpointProvider;
             this.accessTokenExtractor = accessTokenExtractor;
         }
 
         [EffectMethod]
         public async Task Handle(FindCarSelectedAction action, IDispatcher dispatcher)
         {
-            var url = $"{hostNameProvider.PresentationApiHost}/Car/{action.RegistrationNumber}";
+            var url = $"{endpointProvider.PresentationApiEndpoint}/Car/{action.RegistrationNumber}";
 
             string accessToken = await accessTokenExtractor.Extract().ConfigureAwait(false);
 
