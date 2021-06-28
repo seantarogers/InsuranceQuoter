@@ -14,18 +14,11 @@
     [ExcludeFromCodeCoverage]
     public class ServiceHost : IServiceHost
     {
-        private static HostControl hostControl;
         private static IEndpointInstance endpointInstance;
 
         public bool Start(HostControl topshelfHostControl = null)
         {
-            hostControl = topshelfHostControl;
-
-            var applicationSettings = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build()
-                .Get<ApplicationSettings>();
+            ApplicationSettings applicationSettings = DeserializeApplicationSettings();
 
             try
             {
@@ -58,6 +51,16 @@
             }
 
             return true;
+        }
+
+        private static ApplicationSettings DeserializeApplicationSettings()
+        {
+            var applicationSettings = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build()
+                .Get<ApplicationSettings>();
+            return applicationSettings;
         }
 
         private static IEndpointInstance StartEndpoint(EndpointConfiguration configuration)

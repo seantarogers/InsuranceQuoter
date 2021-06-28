@@ -13,20 +13,20 @@
     public class CustomerEffects
     {
         private readonly HttpClient httpClient;
-        private readonly HostNameProvider hostNameProvider;
+        private readonly EndpointProvider endpointProvider;
         private readonly AccessTokenExtractor accessTokenExtractor;
 
-        public CustomerEffects(HttpClient httpClient, HostNameProvider hostNameProvider, AccessTokenExtractor accessTokenExtractor)
+        public CustomerEffects(HttpClient httpClient, EndpointProvider endpointProvider, AccessTokenExtractor accessTokenExtractor)
         {
             this.httpClient = httpClient;
-            this.hostNameProvider = hostNameProvider;
+            this.endpointProvider = endpointProvider;
             this.accessTokenExtractor = accessTokenExtractor;
         }
 
         [EffectMethod]
         public async Task Handle(FindAddressSelectedAction action, IDispatcher dispatcher)
         {
-            var url = $"{hostNameProvider.PresentationApiHost}/Address/{action.PostCode}";
+            var url = $"{endpointProvider.PresentationApiEndpoint}/Address/{action.PostCode}";
 
             string accessToken = await accessTokenExtractor.Extract().ConfigureAwait(false);
 

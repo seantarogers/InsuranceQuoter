@@ -25,6 +25,26 @@
         public bool PoliciesRetrieving => PolicyState.Value.PoliciesRetrieving;
         public List<PolicyModel> Policies => PolicyState.Value.Models;
 
+        public void SortByDriverNameAscending()
+        {
+            Dispatcher.Dispatch(new SortQuotesAscendingByPremiumRequestedAction());
+        }
+
+        public void SortByDriverNameDescending()
+        {
+            Dispatcher.Dispatch(new SortQuotesDescendingByPremiumRequestedAction());
+        }
+
+        public void SortByPolicyUidAscending()
+        {
+            Dispatcher.Dispatch(new SortQuotesAscendingByPremiumRequestedAction());
+        }
+
+        public void SortByPolicyUidDescending()
+        {
+            Dispatcher.Dispatch(new SortQuotesDescendingByPremiumRequestedAction());
+        }
+
         protected override async Task OnInitializedAsync()
         {
             Dispatcher.Dispatch(new InitializeStateAction());

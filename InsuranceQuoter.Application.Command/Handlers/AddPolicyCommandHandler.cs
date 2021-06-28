@@ -21,8 +21,11 @@
 
         public async Task HandleAsync(AddPolicyCommand command)
         {
+            // Would normally validate the incoming command
+
             const string PolicyDocumentType = "Policy";
 
+            DateTime policyStartsOn = DateTime.UtcNow;
             DateTime policyExpiresOn = DateTime.UtcNow.AddYears(1);
 
             await cosmosClientManager.CreateItemAsync(
@@ -40,6 +43,7 @@
                     CoverType = command.CoverType,
                     Email = command.Email,
                     Type = PolicyDocumentType,
+                    StartsOn = policyStartsOn,
                     ExpiresOn = policyExpiresOn,
                     InsurerName = command.InsurerName,
                     AddOns = command.Addons

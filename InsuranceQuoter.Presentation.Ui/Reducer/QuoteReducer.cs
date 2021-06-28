@@ -10,6 +10,34 @@
     public static class QuoteReducer
     {
         [ReducerMethod]
+        public static QuoteState Handle(QuoteState state, SortQuotesAscendingByPremiumRequestedAction _) =>
+            state with
+            {
+                Model = state.Model.OrderBy(a => a.Premium).ToList()
+            };
+
+        [ReducerMethod]
+        public static QuoteState Handle(QuoteState state, SortQuotesDescendingByPremiumRequestedAction _) =>
+            state with
+            {
+                Model = state.Model.OrderByDescending(a => a.Premium).ToList()
+            };
+
+        [ReducerMethod]
+        public static QuoteState Handle(QuoteState state, SortQuotesAscendingByInsurerRequestedAction _) =>
+            state with
+            {
+                Model = state.Model.OrderBy(a => a.Premium).ToList()
+            };
+
+        [ReducerMethod]
+        public static QuoteState Handle(QuoteState state, SortQuotesDescendingByInsurerRequestedAction _) =>
+            state with
+            {
+                Model = state.Model.OrderByDescending(a => a.Premium).ToList()
+            };
+
+        [ReducerMethod]
         public static QuoteState Handle(QuoteState state, QuoteReceivedAction action)
         {
             var quotes = new List<QuoteModel>();

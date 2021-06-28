@@ -57,6 +57,26 @@
             NavigationManager.NavigateTo("car");
         }
 
+        public void SortByPremiumAscending()
+        {
+            Dispatcher.Dispatch(new SortQuotesAscendingByPremiumRequestedAction());
+        }
+
+        public void SortByPremiumDescending()
+        {
+            Dispatcher.Dispatch(new SortQuotesDescendingByPremiumRequestedAction());
+        }
+
+        public void SortByInsurerAscending()
+        {
+            Dispatcher.Dispatch(new SortQuotesAscendingByPremiumRequestedAction());
+        }
+
+        public void SortByInsurerDescending()
+        {
+            Dispatcher.Dispatch(new SortQuotesDescendingByPremiumRequestedAction());
+        }
+
         private async Task HandleValidSubmit()
         {
             NavigationManager.NavigateTo("paymentprogress");

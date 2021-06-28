@@ -10,6 +10,34 @@
     public class PolicyReducer
     {
         [ReducerMethod]
+        public static PolicyState Handle(PolicyState state, SortPoliciesAscendingByPolicyReferenceRequestedAction _) =>
+            state with
+            {
+                Models = state.Models.OrderByDescending(a => a.PolicyUid).ToList()
+            };
+
+        [ReducerMethod]
+        public static PolicyState Handle(PolicyState state, SortPoliciesDescendingByPolicyReferenceRequestedAction _) =>
+            state with
+            {
+                Models = state.Models.OrderByDescending(a => a.PolicyUid).ToList()
+            };
+
+        [ReducerMethod]
+        public static PolicyState Handle(PolicyState state, SortPoliciesAscendingByDriverNameRequestedAction _) =>
+            state with
+            {
+                Models = state.Models.OrderByDescending(a => a.DriverName).ToList()
+            };
+
+        [ReducerMethod]
+        public static PolicyState Handle(PolicyState state, SortPoliciesDescendingByDriverNameRequestedAction _) =>
+            state with
+            {
+                Models = state.Models.OrderByDescending(a => a.DriverName).ToList()
+            };
+
+        [ReducerMethod]
         public static PolicyState Handle(PolicyState _, InitializeStateAction __) =>
             new()
             {
@@ -34,6 +62,7 @@
                     {
                         CoverType = a.CoverType,
                         DriverName = a.FirstName + " " + a.LastName,
+                        StartsOn = a.StartsOn.ToString("dddd, dd MMMM yyyy"),
                         ExpiresOn = a.ExpiresOn.ToString("dddd, dd MMMM yyyy"),
                         Insurer = a.InsurerName,
                         Registration = a.Registration,

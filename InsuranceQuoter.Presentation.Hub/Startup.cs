@@ -1,4 +1,4 @@
-﻿namespace InsuranceQuoter.Presentation.Hub
+namespace InsuranceQuoter.Presentation.Hub
 {
     using InsuranceQuoter.Presentation.Hub.Hubs;
     using Microsoft.AspNetCore.Builder;

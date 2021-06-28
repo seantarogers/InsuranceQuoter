@@ -1,4 +1,4 @@
-﻿namespace InsuranceQuoter.Presentation.Hub
+namespace InsuranceQuoter.Presentation.Hub
 {
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
@@ -31,7 +31,7 @@
                 .ConfigureWebHostDefaults(
                     c =>
                         c.UseStartup<Startup>()
-                            .UseUrls(applicationSettings.Host)
+                            .UseUrls(applicationSettings.HubEndpoint)
                 )
                 .UseNServiceBus(
                     _ =>
