@@ -18,10 +18,11 @@
         <th scope="col">Registration Number</th>
         <th scope="col">
             Policy Reference
-            <i @onclick="SortByPolicyUidAscending" class="bi bi-sort-up pointer"></i>
-            <i @onclick="SortByPolicyUidDescending" class="bi bi-sort-down pointer"></i>
         </th>
-        <th scope="col">Insurer</th>
+        <th scope="col">Insurer
+            <i @onclick="SortByInsurerAscending" class="bi bi-sort-up pointer"></i>
+            <i @onclick="SortByInsurerDescending" class="bi bi-sort-down pointer"></i>
+        </th>
         <th scope="col">Expires On</th>
         <th scope="col">Cover Type</th>
     </tr>

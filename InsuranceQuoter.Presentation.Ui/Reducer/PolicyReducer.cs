@@ -10,24 +10,24 @@
     public class PolicyReducer
     {
         [ReducerMethod]
-        public static PolicyState Handle(PolicyState state, SortPoliciesAscendingByPolicyUidRequestedAction _) =>
+        public static PolicyState Handle(PolicyState state, SortPoliciesAscendingByInsurerRequestedAction _) =>
             state with
             {
-                Models = state.Models.OrderByDescending(a => a.PolicyUid).ToList()
+                Models = state.Models.OrderBy(a => a.Insurer).ToList()
             };
 
         [ReducerMethod]
-        public static PolicyState Handle(PolicyState state, SortPoliciesDescendingByPolicyUidRequestedAction _) =>
+        public static PolicyState Handle(PolicyState state, SortPoliciesDescendingByInsurerRequestedAction _) =>
             state with
             {
-                Models = state.Models.OrderByDescending(a => a.PolicyUid).ToList()
+                Models = state.Models.OrderByDescending(a => a.Insurer).ToList()
             };
 
         [ReducerMethod]
         public static PolicyState Handle(PolicyState state, SortPoliciesAscendingByDriverNameRequestedAction _) =>
             state with
             {
-                Models = state.Models.OrderByDescending(a => a.DriverName).ToList()
+                Models = state.Models.OrderBy(a => a.DriverName).ToList()
             };
 
         [ReducerMethod]

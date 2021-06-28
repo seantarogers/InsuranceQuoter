@@ -35,14 +35,14 @@
             Dispatcher.Dispatch(new SortPoliciesDescendingByDriverNameRequestedAction());
         }
 
-        public void SortByPolicyUidAscending()
+        public void SortByInsurerAscending()
         {
-            Dispatcher.Dispatch(new SortPoliciesAscendingByPolicyUidRequestedAction());
+            Dispatcher.Dispatch(new SortPoliciesAscendingByInsurerRequestedAction());
         }
 
-        public void SortByPolicyUidDescending()
+        public void SortByInsurerDescending()
         {
-            Dispatcher.Dispatch(new SortPoliciesDescendingByPolicyUidRequestedAction());
+            Dispatcher.Dispatch(new SortPoliciesDescendingByInsurerRequestedAction());
         }
 
         protected override async Task OnInitializedAsync()
