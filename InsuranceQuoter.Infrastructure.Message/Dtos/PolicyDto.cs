@@ -38,6 +38,9 @@
         [JsonProperty("coverType")]
         public string CoverType { get; set; }
 
+        [JsonProperty("startsOn")]
+        public DateTime StartsOn { get; set; }
+
         [JsonProperty("expiresOn")]
         public DateTime ExpiresOn { get; set; }
 

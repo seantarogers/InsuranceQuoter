@@ -36,10 +36,10 @@ namespace IdentityProvider
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireClientSecret = false,
                     RequirePkce = true,
-                    RedirectUris = { "https://insurancequoterui.azurewebsites.net/authentication/login-callback" },
-                    PostLogoutRedirectUris = { "https://insurancequoterui.azurewebsites.net/authentication/logout-callback" },
+                    RedirectUris = { "https://localhost:5001/authentication/login-callback", "https://insurancequoterui.azurewebsites.net/authentication/login-callback" },
+                    PostLogoutRedirectUris = { "https://localhost:5001/authentication/logout-callback", "https://insurancequoterui.azurewebsites.net/authentication/logout-callback" },
                     AllowedScopes = { "openid", "profile", "email", "insurancequoterapi" },
-                    AllowedCorsOrigins = { "https://insurancequoterui.azurewebsites.net" }
+                    AllowedCorsOrigins = { "https://localhost:5001", "https://insurancequoterui.azurewebsites.net" }
                 }
             };
     }

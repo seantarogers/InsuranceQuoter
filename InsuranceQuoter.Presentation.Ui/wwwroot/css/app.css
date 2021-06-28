@@ -46,3 +46,8 @@ a, .btn-link { color: #0366d6; }
 .yello {
     background-color: #fffecf;
 }
+
+.pointer
+{
+    cursor: pointer;
+}

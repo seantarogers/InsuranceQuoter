@@ -17,6 +17,7 @@
     <ProjectReference Include="..\InsuranceQuoter.Infrastructure\InsuranceQuoter.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Properties\" />
     <Folder Include="Settings\" />
   </ItemGroup>
   <ItemGroup>

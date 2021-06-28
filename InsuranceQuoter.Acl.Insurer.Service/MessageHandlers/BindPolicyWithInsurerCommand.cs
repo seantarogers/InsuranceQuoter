@@ -11,7 +11,7 @@
     {
         public Task Handle(BindPolicyWithInsurerCommand message, IMessageHandlerContext context)
         {
-            Thread.Sleep(500);
+            Thread.Sleep(100);
 
             var insurerGeneratedPolicyUid = Guid.NewGuid();
 

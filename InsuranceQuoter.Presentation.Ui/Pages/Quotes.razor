@@ -10,9 +10,17 @@
 <table class="table table-bordered table-hover">
     <thead>
     <tr>
-        <th scope="col">Premium</th>
+        <th scope="col">
+            Premium
+            <i @onclick="SortByPremiumAscending" class="bi bi-sort-up pointer"></i>
+            <i @onclick="SortByPremiumDescending" class="bi bi-sort-down pointer"></i>
+        </th>
         <th scope="col">Premium Tax</th>
-        <th scope="col">Insurer</th>
+        <th scope="col">
+            Insurer
+            <i @onclick="SortByInsurerAscending" class="bi bi-sort-up pointer"></i>
+            <i @onclick="SortByInsurerDescending" class="bi bi-sort-down pointer"></i>
+        </th>
         <th scope="col">StartDate</th>
         <th scope="col">Included Addons</th>
         <th scope="col">Buy</th>
