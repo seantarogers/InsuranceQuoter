@@ -10,14 +10,14 @@
     public class PolicyReducer
     {
         [ReducerMethod]
-        public static PolicyState Handle(PolicyState state, SortPoliciesAscendingByPolicyReferenceRequestedAction _) =>
+        public static PolicyState Handle(PolicyState state, SortPoliciesAscendingByPolicyUidRequestedAction _) =>
             state with
             {
                 Models = state.Models.OrderByDescending(a => a.PolicyUid).ToList()
             };
 
         [ReducerMethod]
-        public static PolicyState Handle(PolicyState state, SortPoliciesDescendingByPolicyReferenceRequestedAction _) =>
+        public static PolicyState Handle(PolicyState state, SortPoliciesDescendingByPolicyUidRequestedAction _) =>
             state with
             {
                 Models = state.Models.OrderByDescending(a => a.PolicyUid).ToList()

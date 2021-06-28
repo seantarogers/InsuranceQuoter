@@ -27,22 +27,22 @@
 
         public void SortByDriverNameAscending()
         {
-            Dispatcher.Dispatch(new SortQuotesAscendingByPremiumRequestedAction());
+            Dispatcher.Dispatch(new SortPoliciesAscendingByDriverNameRequestedAction());
         }
 
         public void SortByDriverNameDescending()
         {
-            Dispatcher.Dispatch(new SortQuotesDescendingByPremiumRequestedAction());
+            Dispatcher.Dispatch(new SortPoliciesDescendingByDriverNameRequestedAction());
         }
 
         public void SortByPolicyUidAscending()
         {
-            Dispatcher.Dispatch(new SortQuotesAscendingByPremiumRequestedAction());
+            Dispatcher.Dispatch(new SortPoliciesAscendingByPolicyUidRequestedAction());
         }
 
         public void SortByPolicyUidDescending()
         {
-            Dispatcher.Dispatch(new SortQuotesDescendingByPremiumRequestedAction());
+            Dispatcher.Dispatch(new SortPoliciesDescendingByPolicyUidRequestedAction());
         }
 
         protected override async Task OnInitializedAsync()

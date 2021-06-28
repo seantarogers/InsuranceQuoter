@@ -47,7 +47,6 @@ a, .btn-link { color: #0366d6; }
     background-color: #fffecf;
 }
 
-.pointer
-{
+i.bi.pointer {
     cursor: pointer;
 }
