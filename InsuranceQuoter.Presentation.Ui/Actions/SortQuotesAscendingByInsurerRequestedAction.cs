@@ -1,4 +1,4 @@
 ﻿namespace InsuranceQuoter.Presentation.Ui.Actions
 {
-    public record SortPoliciesAscendingByDriverNameRequestedAction;
+    public record SortQuotesAscendingByInsurerRequestedAction;
 }
