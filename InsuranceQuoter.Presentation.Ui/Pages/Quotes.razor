@@ -1,6 +1,7 @@
 ﻿@page "/quotes"
 @using Microsoft.AspNetCore.Authorization
 @using InsuranceQuoter.Presentation.Ui.Models
+@using InsuranceQuoter.Presentation.Ui.Extensions
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 @attribute [Authorize]
@@ -30,8 +31,8 @@
     @foreach (QuoteModel quote in QuoteModel)
     {
         <tr class="@quote.SelectedClass">
-            <td>£@quote.Premium.ToString("C2")</td>
-            <td>£@quote.PremiumTax.ToString("C2")</td>
+            <td>@quote.Premium.ToPounds()</td>
+            <td>@quote.PremiumTax.ToPounds()</td>
             <td>@quote.Insurer</td>
             <td>@quote.StartDate</td>
             <td>@quote.Addons</td>
