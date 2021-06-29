@@ -10,12 +10,13 @@
     public static class CustomerReducer
     {
         [ReducerMethod]
-        public static CustomerState Handle(CustomerState state, FindAddressSelectedAction action) =>
+        public static CustomerState Handle(CustomerState state, FindAddressSelectedAction _) =>
             state with
             {
                 AddressRetrieving = true,
                 Model = state.Model,
-                AddressRetrieved = false
+                AddressRetrieved = false,
+                AddressNotFound = false,
             };
 
         [ReducerMethod]
@@ -43,8 +44,9 @@
         [ReducerMethod]
         public static CustomerState Handle(CustomerState state, AddressesRetrievedAction action)
         {
-            return new CustomerState
+            return new()
             {
+                AddressNotFound = false,
                 Addresses = action.Addresses.Select(
                     a => new AddressModel
                     {
@@ -68,12 +70,23 @@
         }
 
         [ReducerMethod]
-        public static CustomerState Handle(CustomerState state, InitializeStateAction action) =>
+        public static CustomerState Handle(CustomerState state, AddressesNotFoundAction _) =>
+            state with
+            {
+                Addresses = new List<AddressModel>(),
+                AddressNotFound = true,
+                AddressRetrieved = true,
+                AddressRetrieving = false
+            };
+
+        [ReducerMethod]
+        public static CustomerState Handle(CustomerState state, InitializeStateAction _) =>
             new()
             {
                 Model = new CustomerModel(),
                 AddressRetrieved = false,
                 AddressRetrieving = false,
+                AddressNotFound = false,
                 Addresses = new List<AddressModel>(),
                 IsValid = false
             };

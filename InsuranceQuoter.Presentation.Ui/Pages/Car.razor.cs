@@ -31,6 +31,7 @@
         public CarModel Model => CarState.Value.Model;
         public bool CarRetrieved => CarState.Value.CarRetrieved;
         public bool CarRetrieving => CarState.Value.CarRetrieving;
+        public bool CarNotFound => CarState.Value.CarNotFound;
 
         public void FindCarSelected()
         {

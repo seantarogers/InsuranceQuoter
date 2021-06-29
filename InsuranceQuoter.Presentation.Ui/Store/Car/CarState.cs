@@ -4,6 +4,7 @@
 
     public record CarState
     {
+        public bool CarNotFound { get; init; }
         public bool CarRetrieving { get; init; }
         public bool CarRetrieved { get; init; }
         public bool IsValid { get; init; }

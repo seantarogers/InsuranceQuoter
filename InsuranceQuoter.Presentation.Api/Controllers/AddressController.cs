@@ -30,6 +30,11 @@
 
             AddressesByPostcodeResult result = await getAddressesByPostCodeQueryHandler.HandleAsync(new GetAddressesByPostCodeQuery(postCode)).ConfigureAwait(false);
 
+            if (!result.Addresses.Any())
+            {
+                return NotFound();
+            }
+
             return
                 Ok(
                     new AddressResponse

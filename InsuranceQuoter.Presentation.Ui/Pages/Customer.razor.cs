@@ -28,6 +28,7 @@
         public CustomerModel Model => CustomerState.Value.Model;
         public bool AddressRetrieved => CustomerState.Value.AddressRetrieved;
         public bool AddressRetrieving => CustomerState.Value.AddressRetrieving;
+        public bool AddressNotFound => CustomerState.Value.AddressNotFound;
 
         public void FindAddressSelected()
         {

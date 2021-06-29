@@ -7,6 +7,7 @@
     {
         public bool AddressRetrieving { get; init; }
         public bool AddressRetrieved { get; init; }
+        public bool AddressNotFound { get; init; }
         public bool IsValid { get; init; }
         public CustomerModel Model { get; init; }
         public List<AddressModel> Addresses { get; init; }
