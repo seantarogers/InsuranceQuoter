@@ -2,8 +2,5 @@
 {
     using System;
 
-    public record AddressSelected(Guid Uid)
-    {
-        
-    }
+    public record AddressSelected(Guid Uid);
 }
