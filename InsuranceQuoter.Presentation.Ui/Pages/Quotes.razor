@@ -33,7 +33,7 @@
             <td>£@quote.Premium</td>
             <td>£@quote.PremiumTax</td>
             <td>@quote.Insurer</td>
-            <td>@quote.StartDate.ToShortDateString()</td>
+            <td>@quote.StartDate</td>
             <td>@quote.Addons</td>
 
             <td>
@@ -73,9 +73,11 @@
                             <InputText id="cardNumber" class="form-control" @bind-Value="@PaymentModel.CardNumber" placeholder="Enter Card Number"></InputText>
                             <ValidationMessage For="@(() => PaymentModel.CardNumber)"/>
                         </div>
-                        <div class="form-group">
-                            <InputCheckbox id="termsAndConditions" class="form-control small" @bind-Value="@PaymentModel.AgreeToTermsAndConditions"></InputCheckbox>
-                            <label class="small" for="termsAndConditions">Agree to Terms and Conditions</label>
+                        <div class="form-check form-group">
+                            <InputCheckbox id="termsAndConditions" class="form-check-input" @bind-Value="@PaymentModel.AgreeToTermsAndConditions"></InputCheckbox>
+                            <label class="form-check-label small" for="termsAndConditions">
+                                Terms and conditions
+                            </label>
                         </div>
 
                         <button type="submit" class="btn btn-success">Make Payment</button>
