@@ -44,6 +44,7 @@ namespace InsuranceQuoter.Presentation.Hub
                         endpointConfiguration.AddUnobtrusiveMessaging();
                         endpointConfiguration.LimitMessageProcessingConcurrencyTo(10);
                         endpointConfiguration.TimeoutManager().LimitMessageProcessingConcurrencyTo(10);
+                        endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
 
                         TransportExtensions<AzureServiceBusTransport> transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>();
 
