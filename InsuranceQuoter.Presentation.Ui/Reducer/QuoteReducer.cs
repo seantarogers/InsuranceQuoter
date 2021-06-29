@@ -64,7 +64,7 @@
                     Uid = action.Uid,
                     Insurer = action.InsurerName,
                     Addons = string.Join(", ", action.Addons),
-                    StartDate = action.StartDate,
+                    StartDate = action.StartDate.ToString("dddd, dd MMMM yyyy"),
                     Premium = action.Premium,
                     PremiumTax = action.PremiumTax,
                     Selected = false,
