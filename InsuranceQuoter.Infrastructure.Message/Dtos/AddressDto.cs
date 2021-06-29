@@ -20,7 +20,7 @@
         [JsonProperty("city")]
         public string City { get; set; }
 
-        [JsonProperty("count")]
+        [JsonProperty("county")]
         public string County { get; set; }
     }
 }
