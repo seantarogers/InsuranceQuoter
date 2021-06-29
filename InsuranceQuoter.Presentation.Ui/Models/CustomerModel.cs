@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using InsuranceQuoter.Presentation.Ui.Annotations;
 
     public class CustomerModel
     {
@@ -10,8 +11,9 @@
 
         [Required]
         public string LastName { get; set; }
-        
+
         [Required]
+        [MinimumAge("Driver must be at least 18.")]
         public DateTime? DateOfBirth { get; set; }
 
         [Required]

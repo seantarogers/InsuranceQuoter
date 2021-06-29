@@ -10,9 +10,6 @@
 <EditForm Model="@Model" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator/>
     <ValidationSummary/>
-
-    @*//https://getbootstrap.com/docs/5.0/forms/layout/*@
-    @*form as a row and each item has a col*@
     <div class="form-group">
         <div class="row">
             <div class="col-md-6">
@@ -27,7 +24,7 @@
     <div class="form-group">
         <div class="row">
             <div class="col">
-                <InputDate class="form-control" id="dateofbirth" @bind-Value="Model.DateOfBirth" placeholder="Date of Birth"/>
+                <input required="" type="text" class="form-control" @bind="Model.DateOfBirth" @bind:format="yyyy-MM-dd" placeholder="Date of birth" onfocus="(this.type='date')" />
             </div>
             <div class="col">
             </div>
