@@ -94,7 +94,7 @@
             {
                 QuoteSelected = true,
                 Model = state.Model.Select(
-                    a => new QuoteModel()
+                    a => new QuoteModel
                     {
                         Addons = a.Addons,
                         Insurer = a.Insurer,
