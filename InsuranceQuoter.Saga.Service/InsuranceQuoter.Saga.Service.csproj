@@ -5,6 +5,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NServiceBus" Version="7.4.7" />
+    <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="2.3.0" />
+    <PackageReference Include="NServiceBus.Persistence.CosmosDB" Version="0.2.1" />
     <PackageReference Include="NServiceBus.Persistence.Sql" Version="6.2.0" />
     <PackageReference Include="NServiceBus.Transport.AzureServiceBus" Version="1.9.0" />
     <PackageReference Include="Topshelf" Version="4.3.0" />

@@ -9,26 +9,19 @@
     using InsuranceQuoter.Infrastructure.Message.Commands;
     using InsuranceQuoter.Infrastructure.Message.Requests;
     using InsuranceQuoter.Saga.Service.Settings;
+    using Microsoft.Azure.Cosmos;
     using Microsoft.Extensions.Configuration;
     using NServiceBus;
-    using NServiceBus.Faults;
     using Topshelf;
 
     [ExcludeFromCodeCoverage]
     public class ServiceHost : IServiceHost
     {
-        private static HostControl hostControl;
         private static IEndpointInstance endpointInstance;
 
         public bool Start(HostControl topshelfHostControl = null)
         {
-            hostControl = topshelfHostControl;
-
-            var applicationSettings = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build()
-                .Get<ApplicationSettings>();
+            ApplicationSettings applicationSettings = DeserializeApplicationSettings();
 
             try
             {
@@ -63,6 +56,16 @@
             return true;
         }
 
+        private static ApplicationSettings DeserializeApplicationSettings()
+        {
+            var applicationSettings = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build()
+                .Get<ApplicationSettings>();
+            return applicationSettings;
+        }
+
         private static IEndpointInstance StartEndpoint(EndpointConfiguration configuration)
         {
             return Task.Run(async () => await Endpoint.Start(configuration).ConfigureAwait(false)).GetAwaiter()
@@ -75,14 +78,25 @@
 
             endpointConfiguration.SendFailedMessagesTo(MessagingEndpointConstants.SagaService + ".Error");
             endpointConfiguration.EnableInstallers();
-
             endpointConfiguration.ConfigureAzureServiceBusTransport(applicationSettings.ServiceBusEndpoint);
             endpointConfiguration.AddUnobtrusiveMessaging();
 
-            endpointConfiguration.UsePersistence<InMemoryPersistence, StorageType.Sagas>();
-            endpointConfiguration.UsePersistence<InMemoryPersistence, StorageType.Subscriptions>();
-            endpointConfiguration.UsePersistence<InMemoryPersistence, StorageType.Timeouts>();
-            endpointConfiguration.UsePersistence<InMemoryPersistence, StorageType.Outbox>();
+            endpointConfiguration.UsePersistence<CosmosPersistence>()
+                .CosmosClient(new CosmosClient(applicationSettings.CosmosEndpoint))
+                .DatabaseName(applicationSettings.CosmosDatabaseName)
+                .DefaultContainer(
+                    containerName: "Saga",
+                    partitionKeyPath: "/id");
+
+            endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+
+            //OutboxSettings outbox = endpointConfiguration.EnableOutbox();
+            //outbox.TimeToKeepOutboxDeduplicationData(TimeSpan.FromDays(7));
+
+            //PipelineSettings pipeline = endpointConfiguration.Pipeline;
+            //pipeline.Register(
+            //    behavior: new CosmosOutboxBehavior(),
+            //    description: "Joins the read from the Service Bus queue to the write to the Cosmos database ");
 
             TransportExtensions<AzureServiceBusTransport> transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>();
 
@@ -133,9 +147,5 @@
 
             return endpointConfiguration;
         }
-
-        private static Task OnMessageSentToErrorQueue(FailedMessage failedMessage) =>
-            //applicationLogger.ErrorFormat(EndpointNameConstants.QuoteLeadDomainService, $"Moving failed message to the {EndpointNameConstants.QuoteLeadDomainService}.Error queue. Exception: {failedMessage.Exception}.");
-            Task.CompletedTask;
     }
 }

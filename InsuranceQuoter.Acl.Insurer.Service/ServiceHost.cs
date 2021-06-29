@@ -77,6 +77,7 @@
             endpointConfiguration.EnableInstallers();
             endpointConfiguration.ConfigureAzureServiceBusTransport(applicationSettings.ServiceBusEndpoint);
             endpointConfiguration.AddUnobtrusiveMessaging();
+            endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
 
             return endpointConfiguration;
         }
