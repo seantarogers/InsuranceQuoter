@@ -35,7 +35,7 @@
                     new AddressResponse
                     {
                         Addresses = result.Addresses.Select(
-                            a => new AddressDto()
+                            a => new AddressDto
                             {
                                 AddressLine1 = a.AddressLine1,
                                 City = a.City,

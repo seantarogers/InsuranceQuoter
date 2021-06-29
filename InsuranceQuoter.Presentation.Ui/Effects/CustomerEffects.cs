@@ -6,6 +6,7 @@
     using Fluxor;
     using InsuranceQuoter.Infrastructure.Message.Responses;
     using InsuranceQuoter.Presentation.Ui.Actions;
+    using InsuranceQuoter.Presentation.Ui.Exceptions;
     using InsuranceQuoter.Presentation.Ui.Functions;
     using InsuranceQuoter.Presentation.Ui.Providers;
     using Newtonsoft.Json;
@@ -44,6 +45,11 @@
 
             string jsonString = await response.Content.ReadAsStringAsync();
             var addressResponse = JsonConvert.DeserializeObject<AddressResponse>(jsonString);
+
+            if (addressResponse == null)
+            {
+                throw new AddressCannotBeDeserializedException();
+            }
 
             dispatcher.Dispatch(new AddressesRetrievedAction(addressResponse.Addresses));
         }
