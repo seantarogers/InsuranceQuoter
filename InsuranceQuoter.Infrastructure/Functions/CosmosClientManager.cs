@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using InsuranceQuoter.Infrastructure.Exceptions;
     using InsuranceQuoter.Infrastructure.Message.Dtos;
     using InsuranceQuoter.Infrastructure.Providers;
     using Microsoft.Azure.Cosmos;
@@ -46,14 +45,7 @@
 
             FeedResponse<TDto> feedResponse = await feedIterator.ReadNextAsync().ConfigureAwait(false);
 
-            TDto? item = feedResponse.ToList().SingleOrDefault();
-
-            if (item == default)
-            {
-                throw new ItemNotFoundInCosmosException();
-            }
-
-            return item;
+            return feedResponse.ToList().SingleOrDefault();
         }
 
         public Task CreateItemAsync<TDto>(TDto dto, string databaseId, string containerId, string partitionKey)

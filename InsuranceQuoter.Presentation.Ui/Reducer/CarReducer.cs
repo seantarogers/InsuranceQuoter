@@ -8,9 +8,20 @@
     public static class CarReducer
     {
         [ReducerMethod]
-        public static CarState Handle(CarState state, FindCarSelectedAction action) =>
+        public static CarState Handle(CarState state, CarNotFoundAction _) =>
             state with
             {
+                CarNotFound = true,
+                CarRetrieving = false,
+                Model = new CarModel(),
+                CarRetrieved = true
+            };
+
+        [ReducerMethod]
+        public static CarState Handle(CarState state, FindCarSelectedAction _) =>
+            state with
+            {
+                CarNotFound = false,
                 CarRetrieving = true,
                 Model = state.Model,
                 CarRetrieved = false
@@ -20,6 +31,7 @@
         public static CarState Handle(CarState state, CarRetrievedAction action) =>
             state with
             {
+                CarNotFound = false,
                 CarRetrieving = false,
                 Model = new CarModel
                 {
@@ -55,8 +67,8 @@
             };
 
         [ReducerMethod]
-        public static CarState Handle(CarState state, InitializeStateAction action) =>
-            new CarState()
+        public static CarState Handle(CarState _, InitializeStateAction __) =>
+            new()
             {
                 Model = new CarModel()
             };

@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class CarCannotBeDeserializedException : Exception
+    public class AddressCannotBeDeserializedException : Exception
     {
     }
 }

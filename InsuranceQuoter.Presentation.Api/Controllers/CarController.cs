@@ -26,6 +26,11 @@
 
             CarByRegistrationNumberResult result = await getCarByRegistrationNumberQueryHandler.HandleAsync(new GetCarByRegistrationNumberQuery(registration)).ConfigureAwait(false);
 
+            if (result.CarDto == null)
+            {
+                return NotFound();
+            }
+
             return Ok(
                 new CarResponse
                 {

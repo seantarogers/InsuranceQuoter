@@ -42,14 +42,14 @@
     </div>
 
 
-    @if (@AddressRetrieving == false && @AddressRetrieved == false)
+    @if (!AddressRetrieving && !AddressRetrieved)
     {
         <div class="form-group">
             <button type="button" class="btn btn-primary btn-sm" @onclick="FindAddressSelected">Find Address</button>
         </div>
     }
 
-    @if (@AddressRetrieving)
+    @if (AddressRetrieving)
     {
         <div class="form-group">
             <button class="btn btn-primary btn-sm" type="button" disabled>
@@ -58,7 +58,7 @@
             </button>
         </div>
     }
-    @if (@AddressRetrieved)
+    @if (AddressRetrieved && !AddressNotFound)
     {
         <div class="form-group">
             <select id="country" class="form-control col-sm-8" @onchange="@AddressSelected">
@@ -68,6 +68,17 @@
                         <option value="@address.Uid">@address.ToString()</option>
                     }
                 </select>
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-primary btn-sm" @onclick="FindAddressSelected">Find Address</button>
+        </div>
+    }
+    
+    @if (AddressRetrieved && AddressNotFound)
+    {
+        <div class="alert alert-warning" role="alert">
+            We couldn't find any matching addresses for that postcode. Please try again.
         </div>
 
         <div class="form-group">
@@ -100,14 +111,13 @@
     <div class="form-group">
         <div class="row">
             <div class="col">
-                <InputText class="form-control" id="postcode" @bind-Value="Model.Postcode" placeholder="Postcode"/>
+                <InputText class="form-control" id="postcodeReadOnly" @bind-Value="Model.Postcode" placeholder="Postcode"/>
             </div>
             <div class="col">
             </div>
         </div>
     </div>
-
-    @*disabled="@(!context.Validate() || !context.IsModified())"*@
+    
     <button class="btn btn-success" type="submit">Next</button>
 
 </EditForm>

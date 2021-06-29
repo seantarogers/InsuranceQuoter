@@ -38,7 +38,7 @@
 
             if (!response.IsSuccessStatusCode)
             {
-                dispatcher.Dispatch(new AddressRetrievalFailedAction());
+                dispatcher.Dispatch(new AddressesNotFoundAction());
 
                 return;
             }

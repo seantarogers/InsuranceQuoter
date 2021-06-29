@@ -6,6 +6,7 @@
     using Fluxor;
     using InsuranceQuoter.Infrastructure.Message.Responses;
     using InsuranceQuoter.Presentation.Ui.Actions;
+    using InsuranceQuoter.Presentation.Ui.Exceptions;
     using InsuranceQuoter.Presentation.Ui.Functions;
     using InsuranceQuoter.Presentation.Ui.Providers;
     using Newtonsoft.Json;
@@ -37,13 +38,18 @@
 
             if (!response.IsSuccessStatusCode)
             {
-                dispatcher.Dispatch(new CarRetrievalFailedAction());
+                dispatcher.Dispatch(new CarNotFoundAction());
 
                 return;
             }
 
             string jsonString = await response.Content.ReadAsStringAsync();
             var carResponse = JsonConvert.DeserializeObject<CarResponse>(jsonString);
+
+            if (carResponse == null)
+            {
+                throw new CarCannotBeDeserializedException();
+            }
 
             dispatcher.Dispatch(
                 new CarRetrievedAction(
