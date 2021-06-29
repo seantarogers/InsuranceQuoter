@@ -30,8 +30,8 @@
     @foreach (QuoteModel quote in QuoteModel)
     {
         <tr class="@quote.SelectedClass">
-            <td>£@quote.Premium</td>
-            <td>£@quote.PremiumTax</td>
+            <td>£@quote.Premium.ToString("C2")</td>
+            <td>£@quote.PremiumTax.ToString("C2")</td>
             <td>@quote.Insurer</td>
             <td>@quote.StartDate</td>
             <td>@quote.Addons</td>
@@ -71,7 +71,6 @@
 
                         <div class="form-group">
                             <InputText id="cardNumber" class="form-control" @bind-Value="@PaymentModel.CardNumber" placeholder="Enter Card Number"></InputText>
-                            <ValidationMessage For="@(() => PaymentModel.CardNumber)"/>
                         </div>
                         <div class="form-check form-group">
                             <InputCheckbox id="termsAndConditions" class="form-check-input" @bind-Value="@PaymentModel.AgreeToTermsAndConditions"></InputCheckbox>
