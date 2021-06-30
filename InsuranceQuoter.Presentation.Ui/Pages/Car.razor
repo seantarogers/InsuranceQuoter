@@ -12,16 +12,29 @@
     <ValidationSummary/>
 
     <div class="form-group">
-        <InputSelect class="form-control col-sm-8" @bind-Value="Model.CoverType">
-            <option>Select Insurance Cover Type...</option>
-            <option>Fully Comprehensive</option>
-            <option>Liability Coverage</option>
-            <option>Third Party</option>
-        </InputSelect>
+        <div class="row">
+            <div class="col">
+                <InputSelect class="form-control col-sm-8" @bind-Value="Model.CoverType">
+                    <option>Select Insurance Cover Type...</option>
+                    <option>Fully Comprehensive</option>
+                    <option>Liability Coverage</option>
+                    <option>Third Party</option>
+                </InputSelect>
+            </div>
+            <div class="col">
+            </div>
+        </div>
     </div>
 
     <div class="form-group">
-        <InputText class="form-control" id="registratgion" @bind-Value="Model.Registration" placeholder="Enter your Registration Number to find your Car"/>
+        <div class="row">
+            <div class="col">
+                <InputText class="form-control" id="registratgion" @bind-Value="Model.Registration" placeholder="Enter your Registration Number to find your Car"/>
+            </div>
+            <div class="col">
+            </div>
+
+        </div>
     </div>
 
     @if (CarRetrieving == false && CarRetrieved == false)
@@ -44,35 +57,83 @@
     @if (CarRetrieved && !CarNotFound)
     {
         <div class="form-group">
-            <button class="btn btn-primary btn-sm" @onclick="FindCarSelected">Find Car</button>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-primary btn-sm" @onclick="FindCarSelected">Find Car</button>
+                </div>
+                <div class="col">
+                </div>
+            </div>
         </div>
 
         <div class="form-group">
-            <InputText class="form-control" id="make" @bind-Value="Model.Make" placeholder="Make" readonly/>
+            <div class="row">
+                <div class="col">
+                    <InputText class="form-control" id="make" @bind-Value="Model.Make" placeholder="Make" readonly/>
+                </div>
+                <div class="col">
+                </div>
+            </div>
         </div>
 
         <div class="form-group">
-            <InputText class="form-control" id="model" @bind-Value="Model.Model" placeholder="Model" readonly/>
+            <div class="row">
+                <div class="col">
+                    <InputText class="form-control" id="model" @bind-Value="Model.Model" placeholder="Model" readonly/>
+                </div>
+                <div class="col">
+                </div>
+            </div>
         </div>
 
         <div class="form-group">
-            <InputNumber class="form-control" id="year" @bind-Value="Model.Year" placeholder="Year" readonly/>
+            <div class="row">
+                <div class="col">
+                    <InputNumber class="form-control" id="year" @bind-Value="Model.Year" placeholder="Year" readonly/>
+                </div>
+                <div class="col">
+                </div>
+            </div>
         </div>
 
         <div class="form-group">
-            <InputNumber class="form-control" id="mileage" @bind-Value="Model.Mileage" placeholder="Mileage" readonly/>
+            <div class="row">
+                <div class="col">
+                    <InputNumber class="form-control" id="mileage" @bind-Value="Model.Mileage" placeholder="Mileage" readonly/>
+                </div>
+                <div class="col">
+                </div>
+            </div>
         </div>
 
         <div class="form-group">
-            <InputText class="form-control" id="transmission" @bind-Value="Model.Transmission" placeholder="Transmission" readonly/>
+            <div class="row">
+                <div class="col">
+                    <InputText class="form-control" id="transmission" @bind-Value="Model.Transmission" placeholder="Transmission" readonly/>
+                </div>
+                <div class="col">
+                </div>
+            </div>
         </div>
 
         <div class="form-group">
-            <InputText class="form-control" id="fuel" @bind-Value="Model.Fuel" placeholder="Fuel" readonly/>
+            <div class="row">
+                <div class="col">
+                    <InputText class="form-control" id="fuel" @bind-Value="Model.Fuel" placeholder="Fuel" readonly/>
+                </div>
+                <div class="col">
+                </div>
+            </div>
         </div>
 
         <div class="form-group">
-            <InputText class="form-control" id="fuel" @bind-Value="Model.Registration" placeholder="Registration" readonly/>
+            <div class="row">
+                <div class="col">
+                    <InputText class="form-control" id="fuel" @bind-Value="Model.Registration" placeholder="Registration" readonly/>
+                </div>
+                <div class="col">
+                </div>
+            </div>
         </div>
     }
 
