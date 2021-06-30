@@ -6,7 +6,7 @@
 
     public class TimerManager
     {
-        private static int Ticks = 0;
+        private static int ticks;
         private static int maxTicks;
         private readonly IDispatcher dispatcher;
         private Timer timer;
@@ -22,7 +22,7 @@
 
             timer?.Stop();
 
-            Ticks = 0;
+            ticks = 0;
             timer = new Timer(500) { AutoReset = true };
             timer.Elapsed += OnTick;
             timer.Start();
@@ -31,9 +31,9 @@
         private void OnTick(object sender, ElapsedEventArgs e)
         {
             dispatcher.Dispatch(new TimerElapsedAction());
-            Ticks++;
+            ticks++;
 
-            if (Ticks > maxTicks)
+            if (ticks > maxTicks)
             {
                 dispatcher.Dispatch(new TimerFinishedAction());
                 timer.Stop();

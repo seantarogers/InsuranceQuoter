@@ -21,6 +21,8 @@
 
         public async Task HandleAsync(AddRiskCommand command)
         {
+            // Would normally validate the incoming command
+
             var riskUid = Guid.NewGuid();
 
             const string RiskDocumentType = "Risk";

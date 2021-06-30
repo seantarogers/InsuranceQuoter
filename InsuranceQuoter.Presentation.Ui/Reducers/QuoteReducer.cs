@@ -4,6 +4,7 @@
     using System.Linq;
     using Fluxor;
     using InsuranceQuoter.Presentation.Ui.Actions;
+    using InsuranceQuoter.Presentation.Ui.Extensions;
     using InsuranceQuoter.Presentation.Ui.Models;
     using InsuranceQuoter.Presentation.Ui.Store.Quotes;
 
@@ -74,7 +75,7 @@
                     Uid = action.Uid,
                     Insurer = action.InsurerName,
                     Addons = string.Join(", ", action.Addons),
-                    StartDate = action.StartDate.ToString("dddd, dd MMMM yyyy"),
+                    StartDate = action.StartDate.ToNiceDate(),
                     Premium = action.Premium,
                     PremiumTax = action.PremiumTax,
                     Selected = false,
@@ -174,7 +175,7 @@
             };
 
         [ReducerMethod]
-        public static QuoteState Handle(QuoteState state, InitializeStateAction _) =>
+        public static QuoteState Handle(QuoteState __, InitializeStateAction _) =>
             new()
             {
                 Model = new List<QuoteModel>(),

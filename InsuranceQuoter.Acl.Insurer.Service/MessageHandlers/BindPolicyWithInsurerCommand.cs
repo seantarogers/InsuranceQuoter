@@ -11,6 +11,7 @@
     {
         public Task Handle(BindPolicyWithInsurerCommand message, IMessageHandlerContext context)
         {
+            //To simulate latency
             Thread.Sleep(100);
 
             var insurerGeneratedPolicyUid = Guid.NewGuid();

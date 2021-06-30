@@ -23,6 +23,7 @@
 
         public async Task Handle(AddPolicyCommand message, IMessageHandlerContext context)
         {
+            //To simulate latency
             Thread.Sleep(500);
 
             RiskByUidResult riskByUidResult = await getRiskByUidQueryHandler.HandleAsync(new GetRiskByUidQuery(message.RiskUid)).ConfigureAwait(false);
