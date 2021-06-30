@@ -7,5 +7,8 @@ Azure Cloud Native Proof of Concept comprising
 - Cosmos Db 
 - Azure Service Bus running NServiceBus
 
-![InsuranceQuoter-AppArchitecture](https://user-images.githubusercontent.com/8544425/124011984-84da6280-d9d8-11eb-9142-5277f9caa82b.png)
+Application Architecture:
+
+![ApplicationArchitecture](https://user-images.githubusercontent.com/8544425/124036684-4ce21800-d9f6-11eb-9132-a4bfd80cad22.png)
+
 
