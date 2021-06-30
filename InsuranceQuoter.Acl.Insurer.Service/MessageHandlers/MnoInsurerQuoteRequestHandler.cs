@@ -12,6 +12,7 @@
     {
         public Task Handle(MnoInsurerQuoteRequest message, IMessageHandlerContext context)
         {
+            //To simulate latency
             Thread.Sleep(800);
             return context.Reply(
                 new QuoteResponse

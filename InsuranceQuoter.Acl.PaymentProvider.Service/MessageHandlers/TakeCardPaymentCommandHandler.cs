@@ -11,6 +11,7 @@
     {
         public Task Handle(TakeCardPaymentCommand message, IMessageHandlerContext context)
         {
+            //To simulate latency
             Thread.Sleep(500);
 
             return context.Publish(

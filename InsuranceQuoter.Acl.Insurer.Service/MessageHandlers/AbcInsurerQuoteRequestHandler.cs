@@ -12,7 +12,7 @@
     {
         public Task Handle(AbcInsurerQuoteRequest message, IMessageHandlerContext context)
         {
-            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
+            //To simulate latency
             Thread.Sleep(1100);
 
             return context.Reply(

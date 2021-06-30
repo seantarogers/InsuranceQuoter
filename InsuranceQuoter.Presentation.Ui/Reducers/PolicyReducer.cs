@@ -4,6 +4,7 @@
     using System.Linq;
     using Fluxor;
     using InsuranceQuoter.Presentation.Ui.Actions;
+    using InsuranceQuoter.Presentation.Ui.Extensions;
     using InsuranceQuoter.Presentation.Ui.Models;
     using InsuranceQuoter.Presentation.Ui.Store.Policy;
 
@@ -62,8 +63,8 @@
                     {
                         CoverType = a.CoverType,
                         DriverName = a.FirstName + " " + a.LastName,
-                        StartsOn = a.StartsOn.ToString("dddd, dd MMMM yyyy"),
-                        ExpiresOn = a.ExpiresOn.ToString("dddd, dd MMMM yyyy"),
+                        StartsOn = a.StartsOn.ToNiceDate(),
+                        ExpiresOn = a.ExpiresOn.ToNiceDate(),
                         Insurer = a.InsurerName,
                         Registration = a.Registration,
                         PolicyUid = a.Id
