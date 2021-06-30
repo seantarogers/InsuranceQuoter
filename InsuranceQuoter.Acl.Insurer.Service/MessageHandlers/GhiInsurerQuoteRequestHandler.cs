@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Threading;
     using System.Threading.Tasks;
     using InsuranceQuoter.Infrastructure.Message.Requests;
     using InsuranceQuoter.Infrastructure.Message.Responses;
@@ -10,11 +9,8 @@
 
     public class GhiInsurerQuoteRequestHandler : IHandleMessages<GhiInsurerQuoteRequest>
     {
-        public Task Handle(GhiInsurerQuoteRequest message, IMessageHandlerContext context)
-        {
-            Thread.Sleep(500);
-
-            return context.Reply(
+        public Task Handle(GhiInsurerQuoteRequest message, IMessageHandlerContext context) =>
+            context.Reply(
                 new QuoteResponse
                 {
                     CorrelationId = message.CorrelationId,
@@ -29,6 +25,5 @@
                         "Key cover",
                     }
                 });
-        }
     }
 }

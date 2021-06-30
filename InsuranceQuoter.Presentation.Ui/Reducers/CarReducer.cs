@@ -1,4 +1,4 @@
-﻿namespace InsuranceQuoter.Presentation.Ui.Reducer
+﻿namespace InsuranceQuoter.Presentation.Ui.Reducers
 {
     using Fluxor;
     using InsuranceQuoter.Presentation.Ui.Actions;

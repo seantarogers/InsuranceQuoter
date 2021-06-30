@@ -1,4 +1,4 @@
-﻿namespace InsuranceQuoter.Presentation.Ui.Reducer
+﻿namespace InsuranceQuoter.Presentation.Ui.Reducers
 {
     using System.Collections.Generic;
     using System.Linq;

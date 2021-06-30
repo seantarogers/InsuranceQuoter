@@ -13,7 +13,6 @@
         public Task Handle(JklInsurerQuoteRequest message, IMessageHandlerContext context)
         {
             Thread.Sleep(1500);
-
             return context.Reply(
                 new QuoteResponse
                 {
