@@ -1,4 +1,4 @@
-﻿namespace InsuranceQuoter.Presentation.Ui.Reducer
+﻿namespace InsuranceQuoter.Presentation.Ui.Reducers
 {
     using Fluxor;
     using InsuranceQuoter.Presentation.Ui.Actions;
@@ -7,7 +7,7 @@
     public class RiskReducer
     {
         [ReducerMethod]
-        public static RiskState Handle(RiskState state, RiskUidGeneratedAction action) =>
+        public static RiskState Handle(RiskState _, RiskUidGeneratedAction action) =>
             new()
             {
                 RiskUid = action.RiskUid

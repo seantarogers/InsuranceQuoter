@@ -1,4 +1,4 @@
-﻿namespace InsuranceQuoter.Presentation.Ui.Reducer
+﻿namespace InsuranceQuoter.Presentation.Ui.Reducers
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -58,6 +58,16 @@
                     });
             }
 
+            if (quotes.Any(a => a.Uid == action.Uid))
+            {
+                return new QuoteState
+                {
+                    Model = quotes,
+                    TimerTicks = state.TimerTicks,
+                    QuoteSelected = false,
+                };
+            }
+
             quotes.Add(
                 new QuoteModel
                 {
@@ -71,7 +81,7 @@
                     SelectedClass = string.Empty
                 });
 
-            return new QuoteState()
+            return new QuoteState
             {
                 Model = quotes,
                 TimerTicks = state.TimerTicks,
@@ -111,7 +121,7 @@
         }
 
         [ReducerMethod]
-        public static QuoteState Handle(QuoteState state, QuotesBackSelectedAction action) =>
+        public static QuoteState Handle(QuoteState __, QuotesBackSelectedAction _) =>
             new()
             {
                 QuoteSelected = false,
@@ -120,21 +130,21 @@
             };
 
         [ReducerMethod]
-        public static QuoteState Handle(QuoteState state, TimerElapsedAction action) =>
+        public static QuoteState Handle(QuoteState state, TimerElapsedAction _) =>
             state with
             {
                 TimerTicks = state.TimerTicks + 1
             };
 
         [ReducerMethod]
-        public static QuoteState Handle(QuoteState state, TimerFinishedAction action) =>
+        public static QuoteState Handle(QuoteState state, TimerFinishedAction _) =>
             state with
             {
                 TimerTicks = 0
             };
 
         [ReducerMethod]
-        public static QuoteState Handle(QuoteState state, CloseDialogSelectedAction action)
+        public static QuoteState Handle(QuoteState state, CloseDialogSelectedAction _)
         {
             return new()
             {
@@ -157,14 +167,14 @@
         }
 
         [ReducerMethod]
-        public static QuoteState Handle(QuoteState state, PurchaseOperationCompletedAction action) =>
+        public static QuoteState Handle(QuoteState state, PurchaseOperationCompletedAction _) =>
             state with
             {
                 ShowPaymentDialog = false
             };
 
         [ReducerMethod]
-        public static QuoteState Handle(QuoteState state, InitializeStateAction action) =>
+        public static QuoteState Handle(QuoteState state, InitializeStateAction _) =>
             new()
             {
                 Model = new List<QuoteModel>(),

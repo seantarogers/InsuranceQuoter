@@ -1,4 +1,4 @@
-﻿namespace InsuranceQuoter.Presentation.Ui.Reducer
+﻿namespace InsuranceQuoter.Presentation.Ui.Reducers
 {
     using System.Collections.Generic;
     using Fluxor;
@@ -9,6 +9,15 @@
     //TODO Refactor some duplication
     public class PaymentReducer
     {
+        [ReducerMethod]
+        public static PaymentState Handle(PaymentState _, QuotesBackSelectedAction __) =>
+            new()
+            {
+                Model = new PaymentModel(),
+                WorkflowStates = new List<string>(),
+                PurchaseCompleted = false
+            };
+
         [ReducerMethod]
         public static PaymentState Handle(PaymentState _, InitializeStateAction __) =>
             new()
@@ -22,7 +31,7 @@
         public static PaymentState Handle(PaymentState state, PaymentRequestedAction _) =>
             new()
             {
-                Model = new PaymentModel()
+                Model = new PaymentModel
                 {
                     CardNumber = state.Model.CardNumber
                 },
@@ -48,17 +57,14 @@
         [ReducerMethod]
         public static PaymentState Handle(PaymentState state, CardPaymentTakenAction _)
         {
-            var workflowStates = new List<string>();
-            foreach (string workflowState in state.WorkflowStates)
-            {
-                workflowStates.Add(workflowState);
-            }
+            List<string> workflowStates = BuildExistingWorkflowStates(state);
 
-            workflowStates.Add("2. Card has been authorised and payment has been successfully taken...");
+            const string LatestState = "2. Card has been authorised and payment has been successfully taken...";
+            AddLatestState(workflowStates, LatestState);
 
-            return new PaymentState()
+            return new PaymentState
             {
-                Model = new PaymentModel()
+                Model = new PaymentModel
                 {
                     CardNumber = state.Model.CardNumber
                 },
@@ -69,13 +75,10 @@
         [ReducerMethod]
         public static PaymentState Handle(PaymentState state, ReadyToBindPolicyWithInsurerAction _)
         {
-            var workflowStates = new List<string>();
-            foreach (string workflowState in state.WorkflowStates)
-            {
-                workflowStates.Add(workflowState);
-            }
+            List<string> workflowStates = BuildExistingWorkflowStates(state);
 
-            workflowStates.Add("3. Contacting selected Insurer to bind your policy...");
+            const string LatestState = "3. Contacting selected Insurer to bind your policy...";
+            AddLatestState(workflowStates, LatestState);
 
             return new PaymentState
             {
@@ -90,13 +93,10 @@
         [ReducerMethod]
         public static PaymentState Handle(PaymentState state, PolicyBoundAction _)
         {
-            var workflowStates = new List<string>();
-            foreach (string workflowState in state.WorkflowStates)
-            {
-                workflowStates.Add(workflowState);
-            }
+            List<string> workflowStates = BuildExistingWorkflowStates(state);
 
-            workflowStates.Add("4. Policy has been successfully bound with the insurer...");
+            const string LatestState = "4. Policy has been successfully bound with the insurer...";
+            AddLatestState(workflowStates, LatestState);
 
             return new PaymentState
             {
@@ -111,13 +111,10 @@
         [ReducerMethod]
         public static PaymentState Handle(PaymentState state, ReadyToStorePolicyAction _)
         {
-            var workflowStates = new List<string>();
-            foreach (string workflowState in state.WorkflowStates)
-            {
-                workflowStates.Add(workflowState);
-            }
+            List<string> workflowStates = BuildExistingWorkflowStates(state);
 
-            workflowStates.Add("5. Preparing to store your policy details for future adjustments and renewal...");
+            const string LatestState = "5. Preparing to store your policy details for future adjustments and renewal...";
+            AddLatestState(workflowStates, LatestState);
 
             return new PaymentState
             {
@@ -133,13 +130,10 @@
         [ReducerMethod]
         public static PaymentState Handle(PaymentState state, PolicyPurchaseAndBindCompletedAction action)
         {
-            var workflowStates = new List<string>();
-            foreach (string workflowState in state.WorkflowStates)
-            {
-                workflowStates.Add(workflowState);
-            }
+            List<string> workflowStates = BuildExistingWorkflowStates(state);
 
-            workflowStates.Add("6. Policy stored for future adjustments and renewal");
+            const string LatestState = "6. Policy stored for future adjustments and renewal";
+            AddLatestState(workflowStates, LatestState);
 
             return new PaymentState()
             {
@@ -157,13 +151,10 @@
         [ReducerMethod]
         public static PaymentState Handle(PaymentState state, PurchaseOperationCompletedAction _)
         {
-            var workflowStates = new List<string>();
-            foreach (string workflowState in state.WorkflowStates)
-            {
-                workflowStates.Add(workflowState);
-            }
+            List<string> workflowStates = BuildExistingWorkflowStates(state);
 
-            workflowStates.Add("7. Purchase and bind completed!");
+            const string LatestState = "7. Purchase and bind completed!";
+            AddLatestState(workflowStates, LatestState);
 
             return new PaymentState() with
             {
@@ -176,6 +167,26 @@
                 WorkflowStates = workflowStates,
                 PurchaseCompleted = true
             };
+        }
+
+        private static void AddLatestState(ICollection<string> workflowStates, string latestState)
+        {
+            if (!workflowStates.Contains(latestState))
+            {
+                workflowStates.Add(latestState);
+            }
+        }
+
+        private static List<string> BuildExistingWorkflowStates(PaymentState state)
+        {
+            var workflowStates = new List<string>();
+
+            foreach (string workflowState in state.WorkflowStates)
+            {
+                workflowStates.Add(workflowState);
+            }
+
+            return workflowStates;
         }
     }
 }

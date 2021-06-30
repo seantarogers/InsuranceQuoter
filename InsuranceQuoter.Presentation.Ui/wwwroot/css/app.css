@@ -50,3 +50,8 @@ a, .btn-link { color: #0366d6; }
 i.bi.pointer {
     cursor: pointer;
 }
+
+div#index {
+    background-color: white;
+}
+
