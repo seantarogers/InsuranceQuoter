@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using InsuranceQuoter.Infrastructure.Message.Dtos;
     using Microsoft.Azure.Cosmos;
@@ -17,27 +18,64 @@
             string endpoint = config["CosmosEndpoint"];
             string masterKey = config["CosmosMasterKey"];
 
-            using (var client = new CosmosClient(endpoint, masterKey))
+            Console.WriteLine("Choose an option from the following list:");
+            Console.WriteLine("\tC - Clear Customer Container");
+            Console.WriteLine("\tA - Add Database and Address, Customer, Saga and Car Containers");
+            Console.Write("Your option? ");
+
+            // Use a switch statement to do the math.
+            switch (Console.ReadLine())
             {
-                Database database = (await client.CreateDatabaseIfNotExistsAsync("InsuranceQuoter", ThroughputProperties.CreateManualThroughput(400)).ConfigureAwait(false)).Database;
+                case "C":
+                    using (var client = new CosmosClient(endpoint, masterKey))
+                    {
+                        Database database = client.GetDatabase("InsuranceQuoter");
+                        Container customerContainer = database.GetContainer("Customer");
 
-                Container addressContainer = (await database.CreateContainerIfNotExistsAsync("Address_Manual", "/postcode", 400).ConfigureAwait(false)).Container;
+                        Console.WriteLine("Querying for documents to be deleted");
+                        var sql = "SELECT c.id, c.email FROM c";
+                        FeedIterator<dynamic> iterator = customerContainer.GetItemQueryIterator<dynamic>(sql);
+                        List<dynamic> documents = (await iterator.ReadNextAsync()).ToList();
+                        Console.WriteLine($"Found {documents.Count} documents to be deleted");
+                        foreach (dynamic document in documents)
+                        {
+                            string id = document.id;
+                            string pk = document.email;
+                            await customerContainer.DeleteItemAsync<dynamic>(id, new PartitionKey(pk));
+                        }
+                    }
 
-                List<AddressDto> addresses = BuildTestAddresses();
+                    break;
+                case "A":
+                    using (var client = new CosmosClient(endpoint, masterKey))
+                    {
+                        Database database = (await client.CreateDatabaseIfNotExistsAsync("InsuranceQuoter", ThroughputProperties.CreateManualThroughput(400)).ConfigureAwait(false)).Database;
 
-                await StoreAddresses(addresses, addressContainer).ConfigureAwait(false);
+                        Container addressContainer = (await database.CreateContainerIfNotExistsAsync("Address", "/postcode", 400).ConfigureAwait(false)).Container;
 
-                Container carContainer = (await database.CreateContainerIfNotExistsAsync("Car_Manual", "/registrationNumber", 400).ConfigureAwait(false)).Container;
+                        List<AddressDto> addresses = BuildTestAddresses();
 
-                IEnumerable<CarDto> cars = BuildTestCars();
+                        await StoreAddresses(addresses, addressContainer).ConfigureAwait(false);
 
-                await StoreCars(cars, carContainer).ConfigureAwait(false);
+                        Container carContainer = (await database.CreateContainerIfNotExistsAsync("Car", "/registrationNumber", 400).ConfigureAwait(false)).Container;
 
-                await database.CreateContainerIfNotExistsAsync("Customer_Manual", "/email", 400).ConfigureAwait(false);
+                        IEnumerable<CarDto> cars = BuildTestCars();
+
+                        await StoreCars(cars, carContainer).ConfigureAwait(false);
+
+                        await database.CreateContainerIfNotExistsAsync("Customer", "/email", 400).ConfigureAwait(false);
+
+                        await database.CreateContainerIfNotExistsAsync("Saga", "/id", 400).ConfigureAwait(false);
+
+                        Console.WriteLine("Built the Cosmos Db and the containers required for the InsuranceQuoter application");
+                    }
+
+                    break;
             }
 
-            Console.WriteLine("Built the Cosmos Db and the containers required for the InsuranceQuoter application");
-            Console.ReadLine();
+            // Wait for the user to respond before closing.
+            Console.Write("Press any key to close...");
+            Console.ReadKey();
         }
 
         private static async Task StoreCars(IEnumerable<CarDto> cars, Container carContainer)
