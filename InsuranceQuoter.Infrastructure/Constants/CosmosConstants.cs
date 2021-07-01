@@ -3,8 +3,8 @@
     public static class CosmosConstants
     {
         public const string DatabaseId = "InsuranceQuoter";
-        public const string AddressContainerId = "Address_Manual";
-        public const string CarContainerId = "Car_Manual";
-        public const string CustomerContainerId = "Customer_Manual";
+        public const string AddressContainerId = "Address";
+        public const string CarContainerId = "Car";
+        public const string CustomerContainerId = "Customer";
     }
 }
