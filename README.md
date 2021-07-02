@@ -1,5 +1,5 @@
 # Insurance Quoter
-Azure Cloud Native Proof of Concept comprising :
+Azure Cloud Native, Proof of Concept comprising :
 - UI - ASP.NET Core Blazor Web Assembly Client SPA 
 - UI - Blazor state management with Fluxor
 - Identity Management - OpenId Connect with Identity Server
