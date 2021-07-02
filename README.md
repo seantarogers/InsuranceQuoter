@@ -1,6 +1,7 @@
 # Insurance Quoter
 Azure Cloud Native Proof of Concept comprising 
-- ASP.NET Core Blazor SPA using Fluxor
+- ASP.NET Core Blazor Web Assembly Client SPA 
+- Blazor state management with Fluxor
 - OpenId Connect with Identity Server
 - ASP.NET Core Web API
 - ASP.NET Core SignalR
