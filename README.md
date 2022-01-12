@@ -2,7 +2,7 @@
 Azure Cloud Native, Proof of Concept, comprising :
 - UI - ASP.NET Core Blazor Web Assembly Client SPA 
 - UI - Blazor state management with Fluxor
-- Identity Management - OpenId Connect with Azure AD
+- Identity Management - OpenId Connect with Identity Server (later versions with Azure AD)
 - API (Query Channel) - ASP.NET Core Web API
 - Web Socket (Command Channel) -ASP.NET Core SignalR
 - Database - Cosmos Db 
