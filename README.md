@@ -9,4 +9,5 @@ Azure Cloud Native, Proof of Concept, comprising :
 - Messaging - Azure Service Bus
 - Enterprise Service Bus - NServiceBus
 
-![InsuranceQuoter-V 03](https://user-images.githubusercontent.com/8544425/149145345-cd37dc7c-0291-41c8-b131-a68398cbe08f.png)
+
+![insurancequoter_latest (5)](https://user-images.githubusercontent.com/8544425/155729651-bf350dda-37dc-4878-885e-5cbcd4caf14c.png)
