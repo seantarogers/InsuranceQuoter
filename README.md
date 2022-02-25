@@ -10,4 +10,5 @@ Azure Cloud Native, Proof of Concept, comprising :
 - Enterprise Service Bus - NServiceBus
 
 
-![insurancequoter_latest (5)](https://user-images.githubusercontent.com/8544425/155729651-bf350dda-37dc-4878-885e-5cbcd4caf14c.png)
+
+![insurancequoter_latest (7)](https://user-images.githubusercontent.com/8544425/155730030-3e4647ab-19e5-4e4a-9fb0-7226797386ac.png)
