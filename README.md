@@ -6,8 +6,8 @@ Azure Cloud Native, Proof of Concept, comprising :
 - API (Query Channel) - ASP.NET Core Web API
 - Web Socket (Command Channel) -ASP.NET Core SignalR
 - Database - Cosmos Db 
-- Messaging - Azure Service Bus
-- Enterprise Service Bus - NServiceBus
+- Message Broker - Azure Service Bus
+- Messaging Framework - NServiceBus
 
 
 
